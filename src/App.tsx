@@ -1,12 +1,13 @@
-import Navbar from "./components/NavBar";
-import Home from "./pages/Home";
+import Dashboard from "./pages/Dashboard";
 import "./App.css";
+import MainNav from "./components/MainNav";
 
 function App() {
   return (
     <>
-      <Navbar />
-      <Home />
+    <MainNav />
+      <Dashboard />
+      
     </>
   );
 }

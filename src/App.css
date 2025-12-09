@@ -811,3 +811,219 @@ body {
     gap: 25px;
   }
 }
+/*-----------------------------------*/
+
+/* ============================
+   MODERN DASHBOARD — CLEAN UI
+=============================== */
+
+.dashboard-container {
+  padding: 150px 60px 80px;
+  font-family: "Segoe UI", sans-serif;
+  background: #f6f7f9;
+  min-height: 100vh;
+}
+
+/* ----------------------------
+   TITLES
+----------------------------- */
+.title {
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  color: #222;
+}
+
+.subtitle {
+  margin-top: 6px;
+  color: #666;
+  font-size: 18px;
+}
+
+/* ----------------------------
+   GRID CARDS
+----------------------------- */
+.grid-box {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.card {
+  background: white;
+  padding: 26px;
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+  transition: all 0.25s ease;
+  border: 1px solid rgba(0,0,0,0.05);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 26px rgba(0,0,0,0.09);
+}
+
+.label {
+  color: #666;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.value {
+  margin-top: 10px;
+  font-size: 28px;
+  font-weight: 700;
+  color: #1f1f1f;
+}
+
+/* ----------------------------
+   AI SCORE BOX
+----------------------------- */
+.ai-box {
+  margin-top: 50px;
+  background: white;
+  padding: 38px;
+  border-radius: 20px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.07);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 40px;
+  border: 1px solid rgba(0,0,0,0.05);
+  transition: all 0.25s ease;
+}
+
+.ai-box:hover {
+  transform: scale(1.01);
+  box-shadow: 0 14px 32px rgba(0,0,0,0.1);
+}
+
+.ai-text {
+  color: #444;
+  font-size: 17px;
+  max-width: 520px;
+  line-height: 1.6;
+}
+
+/* ----------------------------
+   SCORE CIRCLE
+----------------------------- */
+.score-circle {
+  width: 130px;
+  height: 130px;
+  background: #2A9D8F;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 42px;
+  font-weight: 700;
+  box-shadow: 0 8px 20px rgba(42,157,143,0.4);
+  transition: all 0.25s ease;
+}
+
+.score-circle:hover {
+  transform: scale(1.08);
+  box-shadow: 0 12px 28px rgba(42,157,143,0.55);
+}
+
+/* ----------------------------
+   MAIN BUTTON
+----------------------------- */
+.input-btn {
+  padding: 16px 32px;
+  background: #2A9D8F;
+  border: none;
+  color: white;
+  border-radius: 14px;
+  cursor: pointer;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  transition: all 0.25s ease;
+  box-shadow: 0 6px 16px rgba(42,157,143,0.35);
+}
+
+.input-btn:hover {
+  background: #23887b;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 22px rgba(42,157,143,0.45);
+}
+
+.input-btn:active {
+  transform: scale(0.97);
+}
+
+/*-------------------------------------*/
+/* NAVBAR — CLEAN PREMIUM REDESIGN */
+.navbar {
+  width: 100%;
+  padding: 18px 60px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  z-index: 1000;
+}
+
+/* LOGO */
+.nav-logo {
+  font-size: 28px;
+  font-weight: 800;
+  color: #0a4d3c;
+  letter-spacing: 1px;
+  transition: 0.3s ease;
+}
+
+.nav-logo:hover {
+  transform: translateY(-2px);
+}
+
+/* NAV LINKS */
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 35px;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+}
+
+.nav-links li {
+  font-size: 18px;
+  cursor: pointer;
+  font-weight: 500;
+  color: #0a4d3c;
+  position: relative;
+  padding-bottom: 4px;
+  transition: 0.3s ease-in-out;
+}
+
+/* Underline animation */
+.nav-links li::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0%;
+  height: 3px;
+  background: #0a8a6a;
+  border-radius: 4px;
+  transition: 0.3s ease-in-out;
+}
+
+.nav-links li:hover::after {
+  width: 100%;
+}
+
+.nav-links li:hover {
+  color: #0a8a6a;
+  transform: translateY(-3px);
+}
