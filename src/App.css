@@ -1027,3 +1027,153 @@ body {
   color: #0a8a6a;
   transform: translateY(-3px);
 }
+
+/*------------------------------------------*/
+/* 🌈 GLOBAL PAGE BACKGROUND */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: "Inter", "Segoe UI", sans-serif;
+
+  background: linear-gradient(135deg, #e9fdf7, #d8eaff);
+  background-attachment: fixed;
+  overflow-x: hidden;
+}
+
+/* 🌐 PAGE WRAPPER */
+.input-container {
+  width: 100%;
+  min-height: calc(100vh - 70px);
+  padding: 90px 50px 50px;
+}
+
+/* 🏷️ TITLES */
+.title {
+  font-size: 40px;
+  font-weight: 800;
+  color: #0f3a3c;
+  margin-bottom: 6px;
+}
+
+.subtitle {
+  font-size: 18px;
+  color: #4e6b6c;
+  margin-bottom: 30px;
+}
+
+/* 🧊 FORM GRID (NO BOX AROUND IT) */
+.input-form {
+  width: 100%;
+  max-width: 1500px;
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px;
+}
+
+/* ⭐ SMALL INDIVIDUAL BOXES FOR EACH INPUT */
+.input-group {
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(14px);
+
+  padding: 20px 22px;
+  border-radius: 20px;
+
+  box-shadow: 0 8px 22px rgba(0,0,0,0.08);
+  transition: 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* ⭐ HOVER EFFECT FOR EACH BOX */
+.input-group:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 32px rgba(0,0,0,0.18);
+  background: rgba(255, 255, 255, 0.75);
+}
+
+/* FULL-WIDTH BOXES */
+.full-width {
+  grid-column: span 2;
+}
+
+/* LABEL */
+.input-group label {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1f4b4c;
+}
+
+/* ✨ INPUTS INSIDE THE SMALL BOX */
+.input-group input,
+.input-group textarea,
+.input-group select {
+  width: 100%;
+  padding: 16px 18px;
+  font-size: 16px;
+
+  border-radius: 14px;
+  border: 1.6px solid rgba(0,0,0,0.12);
+
+  background: rgba(255,255,255,0.9);
+  transition: 0.25s ease;
+}
+
+/* INPUT HOVER */
+.input-group input:hover,
+.input-group textarea:hover,
+.input-group select:hover {
+  border-color: #2A9D8F;
+  background: #ffffff;
+}
+
+/* INPUT FOCUS */
+.input-group input:focus,
+.input-group textarea:focus,
+.input-group select:focus {
+  border-color: #2A9D8F;
+  outline: none;
+  box-shadow: 0 0 14px rgba(42,157,143,0.3);
+}
+
+/* TEXTAREA */
+textarea {
+  height: 120px;
+  resize: none;
+}
+
+/* SUBMIT BUTTON */
+.submit-btn {
+  grid-column: span 2;
+
+  padding: 18px;
+  font-size: 20px;
+  font-weight: 700;
+  background: #2A9D8F;
+  color: white;
+  border: none;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.submit-btn:hover {
+  background: #23877a;
+  transform: translateY(-4px);
+}
+
+/* MOBILE */
+@media (max-width: 900px) {
+  .input-form {
+    grid-template-columns: 1fr;
+  }
+
+  .full-width,
+  .submit-btn {
+    grid-column: span 1;
+  }
+}
+
