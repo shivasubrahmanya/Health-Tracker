@@ -1,12 +1,14 @@
 import "./App.css";
 import MainNav from "./components/MainNav";
-import DailyInput from "./pages/DailyInput";
+import ProfilePage from "./pages/ProfilePage";
+
+
 
 function App() {
   return (
     <>
     <MainNav />
-      <DailyInput />
+      <ProfilePage/>
       
     </>
   );
