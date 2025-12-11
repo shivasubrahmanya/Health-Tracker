@@ -1,0 +1,1285 @@
+/* ===========================================================
+   1. GLASS BACKGROUND (LOGIN / SIGNUP PAGE)
+   =========================================================== */
+.glass-bg {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(circle at top left, #d9f3ec, #c7ece2, #e8f7f3);
+  background-attachment: fixed;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  font-family: "Inter", sans-serif;
+}
+
+/* Floating blobs */
+.glass-bg::before,
+.glass-bg::after {
+  content: "";
+  position: absolute;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  filter: blur(130px);
+  opacity: 0.32;
+}
+
+.glass-bg::before {
+  background: #7edec1;
+  top: -80px;
+  left: -100px;
+}
+
+.glass-bg::after {
+  background: #6ab5ff;
+  bottom: -100px;
+  right: -120px;
+}
+
+
+/* ===========================================================
+   2. LOGIN / SIGNUP CARD
+   =========================================================== */
+.glass-card {
+  width: 420px;
+  padding: 40px 36px;
+  border-radius: 26px;
+  background: rgba(255, 255, 255, 0.38);
+  border: 1px solid rgba(200, 230, 225, 0.4);
+  backdrop-filter: blur(26px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12),
+              inset 0 0 40px rgba(255, 255, 255, 0.1);
+  animation: fadeUp 0.7s ease-out;
+  display: flex;
+  flex-direction: column;
+  max-height: 85vh;
+  overflow-y: auto;
+}
+
+.glass-title {
+  text-align: center;
+  font-size: 30px;
+  font-weight: 700;
+  color: #1a4a43;
+  margin-bottom: 40px;
+}
+
+/* Input group */
+.glass-group {
+  position: relative;
+  margin-bottom: 28px;
+}
+
+.glass-group:last-of-type {
+  margin-bottom: 38px;
+}
+
+.glass-group input {
+  width: 100%;
+  padding: 16px 16px;
+  font-size: 16px;
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(120, 185, 170, 0.55);
+  border-radius: 14px;
+  color: #1b3d38;
+  outline: none;
+  transition: 0.25s ease;
+}
+
+.glass-group input:hover {
+  border-color: #1abc9c;
+}
+
+.glass-group input:focus {
+  border-color: #2a9d8f;
+  box-shadow: 0 0 12px #2a9d8f55;
+}
+
+/* Floating labels */
+.glass-group label {
+  position: absolute;
+  top: 16px;
+  left: 18px;
+  font-size: 14px;
+  color: #578f86;
+  pointer-events: none;
+  transition: 0.25s ease;
+}
+
+.glass-group input:focus + label,
+.glass-group input:not(:placeholder-shown) + label {
+  top: -9px;
+  left: 14px;
+  font-size: 11px;
+  padding: 0 6px;
+  border-radius: 6px;
+  color: #2a9d8f;
+  background: #e8f7f3;
+}
+
+/* Buttons */
+.glass-btn {
+  width: 100%;
+  padding: 16px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #2a9d8f, #50c4a9);
+  color: #ffffff;
+  font-size: 17px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.glass-btn:hover {
+  transform: translateY(-3px);
+  background: linear-gradient(135deg, #1f7c70, #48b69d);
+}
+
+.glass-btn:active {
+  transform: scale(0.96);
+}
+
+.glass-footer {
+  margin-top: 26px;
+  text-align: center;
+  color: #3c6f67;
+  font-size: 14px;
+}
+
+.glass-footer a {
+  color: #2a9d8f;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.glass-footer a:hover {
+  color: #207568;
+  text-decoration: underline;
+}
+
+/* Fade animation */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
+/* ===========================================================
+   3. NAVBAR (GLOBAL)
+   =========================================================== */
+.navbar {
+  width: 100%;
+  padding: 18px 60px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  z-index: 1000;
+}
+
+.nav-logo {
+  font-size: 28px;
+  font-weight: 800;
+  color: #0a4d3c;
+  letter-spacing: 1px;
+  transition: 0.3s ease;
+}
+
+.nav-logo:hover {
+  transform: translateY(-2px);
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 35px;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+}
+
+.nav-links li {
+  font-size: 18px;
+  font-weight: 500;
+  color: #0a4d3c;
+  padding-bottom: 4px;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+  position: relative;
+}
+
+.nav-links li::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0%;
+  height: 3px;
+  background: #0a8a6a;
+  border-radius: 4px;
+  transition: 0.3s ease-in-out;
+}
+
+.nav-links li:hover::after {
+  width: 100%;
+}
+
+.nav-links li:hover {
+  color: #0a8a6a;
+  transform: translateY(-3px);
+}
+
+.nav-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.nav-login,
+.nav-signup {
+  padding: 10px 22px;
+  border-radius: 10px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.25s ease;
+  border: 2px solid #0a8a6a;
+}
+
+.nav-login {
+  background: white;
+  color: #0a8a6a;
+}
+
+.nav-login:hover {
+  transform: translateY(-3px);
+  background: #eafff8;
+}
+
+.nav-signup {
+  background: #0a8a6a;
+  color: white;
+}
+
+.nav-signup:hover {
+  transform: translateY(-3px);
+  background: #0caa86;
+  border-color: #0caa86;
+}
+
+
+/* ===========================================================
+   4. HERO SECTION
+   =========================================================== */
+.hero-section {
+  padding: 150px 60px 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.hero-left {
+  width: 48%;
+}
+
+.hero-title {
+  font-size: 54px;
+  font-weight: 800;
+  color: #0a4d3c;
+  line-height: 1.2;
+}
+
+.hero-desc {
+  margin-top: 15px;
+  font-size: 18px;
+  width: 85%;
+  color: #444;
+}
+
+.hero-buttons {
+  margin-top: 30px;
+  display: flex;
+  gap: 15px;
+}
+
+.btn-primary {
+  padding: 14px 30px;
+  background: #0a8a6a;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  background: #0b9f7b;
+}
+
+.btn-secondary {
+  padding: 14px 30px;
+  background: transparent;
+  border: 2px solid #0a8a6a;
+  color: #0a8a6a;
+  border-radius: 12px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.btn-secondary:hover {
+  transform: translateY(-3px);
+  background: #e9fffb;
+}
+
+/* Hero Right (Card + Image) */
+.hero-right {
+  width: 48%;
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  position: relative;
+}
+
+
+/* ===========================================================
+   5. HERO WELLNESS CARD
+   =========================================================== */
+.hero-card {
+  width: 520px;
+  padding: 34px;
+  background: #ffffff;
+  border-radius: 26px;
+  border: 1px solid rgba(10, 138, 106, 0.15);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+  animation: float 3.5s infinite ease-in-out;
+  transition: 0.4s ease;
+}
+
+.hero-card:hover {
+  transform: translateY(-14px) scale(1.06);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.2);
+  border-color: rgba(10, 138, 106, 0.3);
+}
+
+.card-title {
+  font-size: 24px;
+  font-weight: 800;
+  color: #0a4d3c;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 22px;
+}
+
+.stat-box {
+  background: #f3fefb;
+  padding: 20px;
+  border-radius: 16px;
+  text-align: center;
+  transition: 0.25s ease;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.stat-box:hover {
+  transform: scale(1.08);
+  background: #e2fff7;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+}
+
+.stat-score {
+  font-size: 42px;
+  font-weight: 800;
+  color: #0a8a6a;
+  text-shadow: 0 2px 6px rgba(10, 138, 106, 0.3);
+}
+
+.bar {
+  height: 10px;
+  background: linear-gradient(90deg, #0a8a6a, #0bc49a);
+  border-radius: 6px;
+  margin-top: 6px;
+  animation: barGrow 2.2s ease-in-out infinite;
+}
+
+.emoji {
+  font-size: 34px;
+  animation: bounceEmoji 2s infinite ease-in-out;
+}
+
+
+/* ===========================================================
+   6. HERO ILLUSTRATION IMAGE
+   =========================================================== */
+.illustration {
+  width: 260px;
+  animation: floatSlow 4.5s infinite ease-in-out,
+             rotateSlight 6s infinite ease-in-out;
+  filter: drop-shadow(0 8px 12px rgba(0,0,0,0.15));
+  transition: 0.3s ease;
+}
+
+.illustration:hover {
+  transform: scale(1.08);
+}
+
+
+/* ===========================================================
+   7. ANIMATIONS (GLOBAL FOR HERO)
+   =========================================================== */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-16px); }
+  100% { transform: translateY(0px); }
+}
+
+@keyframes floatSlow {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-18px); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes rotateSlight {
+  0% { transform: rotate(0deg); }
+  50% { transform: rotate(2deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes barGrow {
+  0% { width: 20%; }
+  50% { width: 90%; }
+  100% { width: 20%; }
+}
+
+@keyframes bounceEmoji {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
+}
+
+
+/* ===========================================================
+   8. FEATURES SECTION
+   =========================================================== */
+.features {
+  padding: 80px 60px;
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+  text-align: center;
+}
+
+.feature-card {
+  width: 460px;
+  background: #ffffff;
+  padding: 28px;
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+  border: 1px solid rgba(10,138,106,0.12);
+  transition: 0.35s ease;
+  cursor: pointer;
+  min-height: 320px;
+  display: flex;
+  flex-direction: column;
+}
+
+.feature-card:hover {
+  transform: translateY(-12px) scale(1.05);
+  background: #f3fffa;
+  border-color: rgba(10, 138, 106, 0.25);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.15);
+}
+
+.feature-card img {
+  width: 75px;
+  margin: 10px auto 16px auto;
+}
+
+.feature-card:hover img {
+  transform: scale(1.15) rotate(5deg);
+}
+
+.feature-card h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #0a4d3c;
+  margin-bottom: 12px;
+}
+
+.feature-card p {
+  font-size: 15.5px;
+  color: #4a4a4a;
+  line-height: 1.45;
+}
+
+
+/* ===========================================================
+   9. WHY CHOOSE US SECTION
+   =========================================================== */
+.why-section {
+  padding: 100px 60px;
+  background: linear-gradient(180deg, #f6fbfa, #e9fffa);
+}
+
+.why-title {
+  text-align: center;
+  font-size: 34px;
+  font-weight: 800;
+  color: #0a4d3c;
+  margin-bottom: 55px;
+}
+
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 35px;
+}
+
+.why-box {
+  padding: 32px;
+  background: #ffffff;
+  border-radius: 20px;
+  border: 1.5px solid #e3f7f1;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+  transition: 0.35s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.why-icon {
+  width: 55px;
+  margin: 0 auto 18px auto;
+  display: block;
+  animation: floatIcon 3.5s ease-in-out infinite;
+  transition: 0.3s ease;
+}
+
+.why-box h3 {
+  font-size: 20px;
+  text-align: center;
+  color: #0a4d3c;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.why-box p {
+  font-size: 16px;
+  color: #4b4b4b;
+  text-align: center;
+  line-height: 1.55;
+}
+
+.why-box:hover {
+  transform: translateY(-14px) scale(1.03);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+  border-color: #0ab58a;
+}
+
+.why-box::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(145deg, rgba(10,138,106,0.15), rgba(255,255,255,0));
+  opacity: 0;
+  transition: 0.35s ease;
+}
+
+.why-box:hover::after {
+  opacity: 1;
+}
+
+.why-box:hover .why-icon {
+  transform: scale(1.15) rotate(4deg);
+}
+
+@keyframes floatIcon {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(0px); }
+}
+
+
+/* ===========================================================
+   10. HOW IT WORKS SECTION
+   =========================================================== */
+.how-section {
+  padding: 80px 60px;
+}
+
+.how-title {
+  text-align: center;
+  font-size: 32px;
+  font-weight: 700;
+  color: #0a4d3c;
+  margin-bottom: 45px;
+}
+
+.how-grid {
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+}
+
+.step-box {
+  width: 260px;
+  padding: 20px;
+  transition: 0.25s ease;
+}
+
+.step-box:hover {
+  transform: translateY(-10px);
+}
+
+.step-number {
+  width: 50px;
+  height: 50px;
+  display: inline-flex;
+  background: #0a8a6a;
+  color: white;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  margin-bottom: 15px;
+  font-size: 20px;
+}
+
+
+/* ===========================================================
+   11. FOOTER
+   =========================================================== */
+.footer {
+  padding: 20px;
+  text-align: center;
+  margin-top: 40px;
+  background: #f0f7f5;
+  color: #333;
+  font-size: 15px;
+}
+
+
+/* ===========================================================
+   12. DASHBOARD PAGE
+   =========================================================== */
+.dashboard-container {
+  padding: 150px 60px 80px;
+  background: #f6f7f9;
+  min-height: 100vh;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.title {
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  color: #222;
+}
+
+.subtitle {
+  margin-top: 6px;
+  color: #666;
+  font-size: 18px;
+}
+
+.grid-box {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.card {
+  background: white;
+  padding: 26px;
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+  transition: all 0.25s ease;
+  border: 1px solid rgba(0,0,0,0.05);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 26px rgba(0,0,0,0.09);
+}
+
+.label {
+  color: #666;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.value {
+  margin-top: 10px;
+  font-size: 28px;
+  font-weight: 700;
+  color: #1f1f1f;
+}
+
+/* AI Score box */
+.ai-box {
+  margin-top: 50px;
+  background: white;
+  padding: 38px;
+  border-radius: 20px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.07);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 40px;
+  border: 1px solid rgba(0,0,0,0.05);
+  transition: all 0.25s ease;
+}
+
+.ai-box:hover {
+  transform: scale(1.01);
+  box-shadow: 0 14px 32px rgba(0,0,0,0.1);
+}
+
+.ai-text {
+  color: #444;
+  font-size: 17px;
+  max-width: 520px;
+  line-height: 1.6;
+}
+
+.score-circle {
+  width: 130px;
+  height: 130px;
+  background: #2A9D8F;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 42px;
+  font-weight: 700;
+  box-shadow: 0 8px 20px rgba(42,157,143,0.4);
+  transition: 0.25s ease;
+}
+
+.score-circle:hover {
+  transform: scale(1.08);
+  box-shadow: 0 12px 28px rgba(42,157,143,0.55);
+}
+
+/* Main CTA button */
+.input-btn {
+  padding: 16px 32px;
+  background: #2A9D8F;
+  border: none;
+  color: white;
+  border-radius: 14px;
+  cursor: pointer;
+  font-size: 17px;
+  font-weight: 600;
+  transition: all 0.25s ease;
+  box-shadow: 0 6px 16px rgba(42,157,143,0.35);
+}
+
+.input-btn:hover {
+  background: #23887b;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 22px rgba(42,157,143,0.45);
+}
+
+.input-btn:active {
+  transform: scale(0.97);
+}
+
+
+/* ===========================================================
+   13. DAILY INPUT PAGE
+   =========================================================== */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: "Inter", "Segoe UI", sans-serif;
+  background: linear-gradient(135deg, #e9fdf7, #d8eaff);
+  background-attachment: fixed;
+  overflow-x: hidden;
+}
+
+.input-container {
+  width: 100%;
+  min-height: calc(100vh - 70px);
+  padding: 90px 50px 50px;
+}
+
+.input-form {
+  width: 100%;
+  max-width: 1500px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px;
+}
+
+.input-group {
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(14px);
+  padding: 20px 22px;
+  border-radius: 20px;
+  box-shadow: 0 8px 22px rgba(0,0,0,0.08);
+  transition: 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.input-group:hover {
+  transform: translateY(-4px);
+  background: rgba(255, 255, 255, 0.75);
+  box-shadow: 0 14px 32px rgba(0,0,0,0.18);
+}
+
+.full-width {
+  grid-column: span 2;
+}
+
+.input-group label {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1f4b4c;
+}
+
+.input-group input,
+.input-group textarea,
+.input-group select {
+  width: 100%;
+  padding: 16px 18px;
+  font-size: 16px;
+  border-radius: 14px;
+  border: 1.6px solid rgba(0,0,0,0.12);
+  background: rgba(255,255,255,0.9);
+  transition: 0.25s ease;
+}
+
+.input-group input:hover,
+.input-group textarea:hover,
+.input-group select:hover {
+  border-color: #2A9D8F;
+  background: white;
+}
+
+.input-group input:focus,
+.input-group textarea:focus,
+.input-group select:focus {
+  border-color: #2A9D8F;
+  outline: none;
+  box-shadow: 0 0 14px rgba(42,157,143,0.3);
+}
+
+textarea {
+  height: 120px;
+  resize: none;
+}
+
+.submit-btn {
+  padding: 18px;
+  font-size: 20px;
+  font-weight: 700;
+  background: #2A9D8F;
+  color: white;
+  border: none;
+  border-radius: 16px;
+  cursor: pointer;
+  grid-column: span 2;
+  transition: 0.3s ease;
+}
+
+.submit-btn:hover {
+  background: #23877a;
+  transform: translateY(-4px);
+}
+
+@media (max-width: 900px) {
+  .input-form {
+    grid-template-columns: 1fr;
+  }
+
+  .full-width,
+  .submit-btn {
+    grid-column: span 1;
+  }
+}
+
+
+/* ===========================================================
+   14. WEEKLY REPORT PAGE
+   =========================================================== */
+body {
+  background: linear-gradient(135deg, #e8f5f3, #f4fbfa);
+  min-height: 100vh;
+  padding-top: 80px;
+}
+
+.weekly-container {
+  width: 100%;
+  margin: 0;
+  padding: 20px 30px;
+  max-width: none !important;
+}
+
+.weekly-title {
+  font-size: 40px;
+  font-weight: 800;
+  color: #0c3c32;
+}
+
+.weekly-subtitle {
+  margin-top: 6px;
+  font-size: 17px;
+  color: #5c6f6c;
+}
+
+.grid-container {
+  margin-top: 40px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 28px;
+  box-sizing: border-box;
+}
+
+.report-card {
+  background: white;
+  padding: 22px;
+  border-radius: 18px;
+  border: 1px solid #e6e6e6;
+  box-shadow: 0 5px 14px rgba(0,0,0,0.07);
+  transition: 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.report-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 30px rgba(0,0,0,0.1);
+}
+
+.report-card h3 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.graph {
+  width: 100%;
+  height: 240px;
+  border-radius: 14px;
+  background: #e8f5f3;
+  flex-grow: 1;
+}
+
+.card-note {
+  margin-top: 12px;
+  font-size: 14px;
+  color: #3a635e;
+}
+
+.ai-summary {
+  margin-top: 40px;
+  background: white;
+  padding: 26px;
+  border-radius: 18px;
+  border: 1px solid #e6e6e6;
+  box-shadow: 0 5px 14px rgba(0,0,0,0.07);
+}
+
+.ai-summary h3 {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+@media (max-width: 768px) {
+  .weekly-title {
+    font-size: 30px;
+  }
+
+  .grid-container {
+    grid-template-columns: 1fr;
+  }
+
+  .graph {
+    height: 190px;
+  }
+}
+
+
+/* ===========================================================
+   15. DIET TIPS PAGE
+   =========================================================== */
+.diet-tips-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  padding: 60px 60px;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #e8fbf4, #f6fffd);
+  animation: fadeIn 0.7s ease;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.card {
+  width: 100%;
+  min-height: 650px;
+  background: rgba(255, 255, 255, 0.78);
+  border-radius: 26px;
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(14px);
+  padding: 36px;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.10),
+              0 6px 16px rgba(0,0,0,0.06);
+  transition: all 0.28s ease;
+  animation: fadeIn 1s ease;
+}
+
+.card:hover {
+  transform: translateY(-12px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15),
+              0 10px 24px rgba(0,0,0,0.08);
+  border-color: #c8f1e8;
+}
+
+.card h2 {
+  color: #083b33;
+  font-size: 30px;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  color: #527a70;
+  font-size: 17px;
+  margin-bottom: 18px;
+}
+
+.tips-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+.tips-list li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 6px;
+  border-radius: 14px;
+  font-size: 17px;
+  color: #355f56;
+  transition: 0.25s ease;
+}
+
+.tips-list li:hover {
+  background: rgba(0,0,0,0.04);
+  transform: translateX(8px);
+}
+
+.icon {
+  font-size: 24px;
+  animation: iconGlow 3s infinite ease-in-out;
+}
+
+.day {
+  margin-top: 26px;
+  font-size: 22px;
+  font-weight: 800;
+  color: #0c3f35;
+}
+
+p {
+  margin: 10px 0;
+  color: #36544f;
+  font-size: 16px;
+}
+
+.calories {
+  margin-top: 20px;
+  font-size: 19px;
+  font-weight: 700;
+  color: #e85941;
+}
+
+@media (max-width: 900px) {
+  .diet-tips-container {
+    grid-template-columns: 1fr;
+    padding: 40px 20px;
+  }
+
+  .card {
+    min-height: 600px;
+  }
+}
+
+
+/* ===========================================================
+   16. PROFILE EDIT PAGE
+   =========================================================== */
+.profile-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.profile-title {
+  font-size: 34px;
+  font-weight: 700;
+  color: #1a3c36;
+}
+
+.profile-subtitle {
+  margin-top: 6px;
+  color: #6b7a78;
+  font-size: 16px;
+}
+
+.profile-card {
+  margin-top: 30px;
+  background: white;
+  border-radius: 20px;
+  padding: 30px;
+  border: 1px solid #e3eeeb;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.two-column {
+  display: flex;
+  gap: 20px;
+}
+
+.save-btn {
+  margin-top: 20px;
+  width: 100%;
+  padding: 14px;
+  background: #2a9d8f;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.save-btn:hover {
+  background: #23867a;
+}
+
+@media (max-width: 700px) {
+  .two-column {
+    flex-direction: column;
+  }
+}
+
+
+/* ===========================================================
+   17. PROFILE VIEW PAGE
+   =========================================================== */
+.profile-view-container {
+  max-width: 750px;
+  margin: 40px auto;
+  padding: 20px;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.profile-view-title {
+  font-size: 34px;
+  font-weight: 700;
+  color: #1a3c36;
+}
+
+.profile-view-subtitle {
+  margin-top: 6px;
+  color: #6b7a78;
+  font-size: 16px;
+}
+
+.profile-view-card {
+  margin-top: 30px;
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  border: 1px solid #e5ecea;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid #eef4f3;
+}
+
+.row:last-child {
+  border-bottom: none;
+}
+
+.label {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1c3d36;
+}
+
+.value {
+  font-size: 16px;
+  color: #537b76;
+}
+
+.edit-btn {
+  margin-top: 25px;
+  width: 100%;
+  padding: 14px;
+  border-radius: 12px;
+  background: #2a9d8f;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.edit-btn:hover {
+  background: #23867a;
+}
+
+.no-profile {
+  text-align: center;
+  color: #6b7a78;
+}
+
+@media (max-width: 600px) {
+  .profile-view-card {
+    padding: 20px;
+  }
+
+  .row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .value {
+    margin-top: 4px;
+  }
+}
