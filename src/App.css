@@ -171,88 +171,89 @@
 
 
 /* ===========================================================
-   3. NAVBAR (GLOBAL)
+   NAVBAR — FINAL FIXED VERSION
    =========================================================== */
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;   /* Stop horizontal scrolling */
+}
+
 .navbar {
   width: 100%;
-  padding: 18px 60px;
+  padding: 14px 22px;      /* smaller padding = more space */
   position: fixed;
   top: 0;
   left: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(12px);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+
   z-index: 1000;
+  overflow: hidden;         /* 🔥 final protection against overflow */
 }
 
+/* LOGO */
 .nav-logo {
-  font-size: 28px;
+  font-size: 26px;
   font-weight: 800;
   color: #0a4d3c;
-  letter-spacing: 1px;
-  transition: 0.3s ease;
+  white-space: nowrap;
 }
 
-.nav-logo:hover {
-  transform: translateY(-2px);
-}
-
+/* NAV LINKS — CENTERED */
 .nav-links {
   display: flex;
+  gap: 22px;                /* 🔥 reduced gap to fit screen */
   list-style: none;
-  gap: 35px;
-  justify-content: center;
+
+  flex: 1;                  /* middle area stretches */
+  justify-content: center;  /* centers links */
   align-items: center;
-  flex: 1;
+
+  min-width: 0;             /* 🔥 allows shrinking instead of pushing buttons */
+  padding: 0;
+  margin: 0;
 }
 
+/* MENU ITEMS */
 .nav-links li {
   font-size: 18px;
   font-weight: 500;
+  white-space: nowrap;
   color: #0a4d3c;
-  padding-bottom: 4px;
   cursor: pointer;
-  transition: 0.3s ease-in-out;
   position: relative;
 }
 
-.nav-links li::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 0%;
-  height: 3px;
-  background: #0a8a6a;
-  border-radius: 4px;
-  transition: 0.3s ease-in-out;
-}
-
-.nav-links li:hover::after {
-  width: 100%;
-}
-
-.nav-links li:hover {
-  color: #0a8a6a;
-  transform: translateY(-3px);
-}
-
+/* BUTTONS (Right Side) */
 .nav-buttons {
   display: flex;
-  gap: 12px;
+  gap: 10px;
+  flex-shrink: 0;           /* 🔥 prevents getting squeezed out */
+  white-space: nowrap;
 }
 
+/* LOGIN + SIGNUP BUTTONS */
 .nav-login,
 .nav-signup {
-  padding: 10px 22px;
+  padding: 8px 18px;
   border-radius: 10px;
   font-size: 15px;
   cursor: pointer;
-  transition: 0.25s ease;
+  transition: 0.25s;
   border: 2px solid #0a8a6a;
+  white-space: nowrap;
 }
 
 .nav-login {
@@ -260,22 +261,10 @@
   color: #0a8a6a;
 }
 
-.nav-login:hover {
-  transform: translateY(-3px);
-  background: #eafff8;
-}
-
 .nav-signup {
   background: #0a8a6a;
   color: white;
 }
-
-.nav-signup:hover {
-  transform: translateY(-3px);
-  background: #0caa86;
-  border-color: #0caa86;
-}
-
 
 /* ===========================================================
    4. HERO SECTION

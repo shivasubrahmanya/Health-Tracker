@@ -1,9 +1,7 @@
 import { useState } from "react";
 import type { ChangeEvent, FormEvent } from "react";
+import { useNavigate } from "react-router-dom";
 
-/* ---------------------------
-   TYPE FOR PROFILE DATA
----------------------------- */
 interface ProfileType {
   name: string;
   age: string;
@@ -15,9 +13,8 @@ interface ProfileType {
 }
 
 function ProfileSetup() {
-  /* ---------------------------
-      STATE WITH TYPE
-  ---------------------------- */
+  const navigate = useNavigate();
+
   const [profile, setProfile] = useState<ProfileType>({
     name: "",
     age: "",
@@ -28,62 +25,63 @@ function ProfileSetup() {
     activity: ""
   });
 
-  /* ---------------------------
-      HANDLE INPUT CHANGE
-  ---------------------------- */
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     setProfile({ ...profile, [e.target.name]: e.target.value });
   };
 
-  /* ---------------------------
-      HANDLE FORM SUBMIT
-  ---------------------------- */
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("You are not logged in");
+      navigate("/login");
+      return;
+    }
+
+    const res = await fetch("http://localhost:5000/api/v1/profile/setup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify(profile)
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      alert(data.message || "Error saving profile");
+      return;
+    }
+
     alert("Profile Updated Successfully!");
-    console.log("Profile Data:", profile);
+
+    // redirect to dashboard
+    navigate("/dashboard");
   };
 
   return (
     <div className="profile-container">
-      <h1 className="profile-title">Profile</h1>
-      <p className="profile-subtitle">Update your personal health information</p>
+      <h1 className="profile-title">Profile Setup</h1>
 
       <form className="profile-card" onSubmit={handleSubmit}>
-        {/* NAME */}
         <div className="input-group">
           <label>Name</label>
-          <input
-            type="text"
-            name="name"
-            placeholder="Enter your name"
-            value={profile.name}
-            onChange={handleChange}
-          />
+          <input name="name" value={profile.name} onChange={handleChange} />
         </div>
 
-        {/* TWO COLUMN: AGE + GENDER */}
         <div className="two-column">
           <div className="input-group">
             <label>Age</label>
-            <input
-              type="number"
-              name="age"
-              placeholder="e.g., 20"
-              value={profile.age}
-              onChange={handleChange}
-            />
+            <input name="age" type="number" value={profile.age} onChange={handleChange} />
           </div>
 
           <div className="input-group">
             <label>Gender</label>
-            <select
-              name="gender"
-              value={profile.gender}
-              onChange={handleChange}
-            >
+            <select name="gender" value={profile.gender} onChange={handleChange}>
               <option value="">Select</option>
               <option value="Male">Male</option>
               <option value="Female">Female</option>
@@ -92,39 +90,21 @@ function ProfileSetup() {
           </div>
         </div>
 
-        {/* TWO COLUMN: WEIGHT + HEIGHT */}
         <div className="two-column">
           <div className="input-group">
             <label>Weight (kg)</label>
-            <input
-              type="number"
-              name="weight"
-              placeholder="e.g., 65"
-              value={profile.weight}
-              onChange={handleChange}
-            />
+            <input name="weight" type="number" value={profile.weight} onChange={handleChange} />
           </div>
 
           <div className="input-group">
             <label>Height (cm)</label>
-            <input
-              type="number"
-              name="height"
-              placeholder="e.g., 170"
-              value={profile.height}
-              onChange={handleChange}
-            />
+            <input name="height" type="number" value={profile.height} onChange={handleChange} />
           </div>
         </div>
 
-        {/* GOAL */}
         <div className="input-group">
-          <label>Health Goal</label>
-          <select
-            name="goal"
-            value={profile.goal}
-            onChange={handleChange}
-          >
+          <label>Goal</label>
+          <select name="goal" value={profile.goal} onChange={handleChange}>
             <option value="">Select</option>
             <option value="Weight Loss">Weight Loss</option>
             <option value="Build Muscle">Build Muscle</option>
@@ -133,14 +113,9 @@ function ProfileSetup() {
           </select>
         </div>
 
-        {/* ACTIVITY */}
         <div className="input-group">
           <label>Activity Level</label>
-          <select
-            name="activity"
-            value={profile.activity}
-            onChange={handleChange}
-          >
+          <select name="activity" value={profile.activity} onChange={handleChange}>
             <option value="">Select</option>
             <option value="Sedentary">Sedentary</option>
             <option value="Light Activity">Light Activity</option>
@@ -149,9 +124,8 @@ function ProfileSetup() {
           </select>
         </div>
 
-        {/* SAVE BUTTON */}
         <button className="save-btn" type="submit">
-          Save Profile
+          Save & Continue
         </button>
       </form>
     </div>

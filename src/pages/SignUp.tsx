@@ -1,13 +1,18 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function SignUp() {
+  const navigate = useNavigate();
+
   const [form, setForm] = useState({
     name: "",
     email: "",
     password: ""
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
@@ -19,59 +24,57 @@ function SignUp() {
     });
 
     const data = await res.json();
-    console.log(data);
-    alert(data.message);
+
+    if (!res.ok) {
+      alert(data.message || "Signup failed");
+      return;
+    }
+
+    alert("Signup successful!");
+
+    // ⭐ FIXED REDIRECT — now matches App.tsx route
+    navigate("/profile-setup");
   };
 
   return (
     <div className="glass-bg">
       <div className="glass-card">
+
         <h2 className="glass-title">Sign Up</h2>
 
-        {/* Full Name */}
         <div className="glass-group">
           <input
             name="name"
             type="text"
-            required
-            placeholder="Enter your full name"
+            placeholder="Enter your name"
             value={form.name}
             onChange={handleChange}
           />
         </div>
 
-        {/* Email */}
         <div className="glass-group">
           <input
             name="email"
             type="email"
-            required
-            placeholder="Enter your email address"
+            placeholder="Enter your email"
             value={form.email}
             onChange={handleChange}
           />
         </div>
 
-        {/* Password */}
         <div className="glass-group">
           <input
             name="password"
             type="password"
-            required
             placeholder="Enter your password"
             value={form.password}
             onChange={handleChange}
           />
         </div>
 
-        {/* Button */}
         <button className="glass-btn" onClick={handleSignup}>
           Sign Up
         </button>
-
-        <p className="glass-footer">
-          Already have an account? <a href="/login">Login</a>
-        </p>
       </div>
     </div>
   );
