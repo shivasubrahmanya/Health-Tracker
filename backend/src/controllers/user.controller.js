@@ -22,12 +22,19 @@ export const signup = async (req, res) => {
       password: hashed,
     });
 
-    res.status(201).json({ message: "Signup successful", user });
+    // Create token for auto-login after signup
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+
+    res.status(201).json({
+      message: "Signup successful",
+      token,
+      user: { id: user._id, name: user.name }
+    });
+
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 };
-
 
 export const login = async (req, res) => {
   try {
@@ -46,7 +53,7 @@ export const login = async (req, res) => {
     res.json({
       message: "Login successful",
       token,
-      user: { id: user._id, name: user.name },
+      user: { id: user._id, name: user.name }
     });
 
   } catch (err) {

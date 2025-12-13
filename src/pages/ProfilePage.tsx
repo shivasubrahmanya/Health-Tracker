@@ -12,50 +12,88 @@ interface ProfileType {
 
 export default function ProfilePage() {
   const [profile, setProfile] = useState<ProfileType | null>(null);
+  const [loading, setLoading] = useState(true);
 
- useEffect(() => {
-  const loadProfile = () => {
-    const saved = localStorage.getItem("userProfile");
-    if (saved) {
-      setProfile(JSON.parse(saved));
-    }
-  };
+  useEffect(() => {
+    const loadProfile = async () => {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        window.location.href = "/login";
+        return;
+      }
 
-  loadProfile();
-}, []);
+      const res = await fetch("http://localhost:5000/api/v1/profile/me", {
+        headers: { Authorization: `Bearer ${token}` }
+      });
 
+      const data = await res.json();
+
+      if (res.ok) setProfile(data);
+
+      setLoading(false);
+    };
+
+    loadProfile();
+  }, []);
 
   const handleEdit = () => {
-    window.location.href = "/edit-profile";
+    window.location.href = "/profile-setup";
   };
 
-  if (!profile) {
-    return (
-      <div className="profile-view-container">
-        <h2>No profile found</h2>
-        <button className="edit-btn" onClick={handleEdit}>
-          Create Profile
-        </button>
-      </div>
-    );
-  }
+  if (loading) return <h2>Loading...</h2>;
+
+  if (!profile) return (
+    <div>
+      <h2>No profile yet</h2>
+      <button onClick={handleEdit}>Create Profile</button>
+    </div>
+  );
 
   return (
     <div className="profile-view-container">
-      <h1 className="profile-view-title">Your Profile</h1>
-      <p className="profile-view-subtitle">Review your details</p>
+      <h1>Your Profile</h1>
 
       <div className="profile-view-card">
-        <div className="row"><span className="label">Name:</span> <span className="value">{profile.name}</span></div>
-        <div className="row"><span className="label">Age:</span> <span className="value">{profile.age}</span></div>
-        <div className="row"><span className="label">Gender:</span> <span className="value">{profile.gender}</span></div>
-        <div className="row"><span className="label">Weight:</span> <span className="value">{profile.weight} kg</span></div>
-        <div className="row"><span className="label">Height:</span> <span className="value">{profile.height} cm</span></div>
-        <div className="row"><span className="label">Goal:</span> <span className="value">{profile.goal}</span></div>
-        <div className="row"><span className="label">Activity:</span> <span className="value">{profile.activity}</span></div>
 
-        <button className="edit-btn" onClick={handleEdit}>Edit Profile</button>
-      </div>
+  <div className="profile-item">
+    <span className="label">Name</span>
+    <span className="value">{profile.name}</span>
+  </div>
+
+  <div className="profile-item">
+    <span className="label">Age</span>
+    <span className="value">{profile.age}</span>
+  </div>
+
+  <div className="profile-item">
+    <span className="label">Gender</span>
+    <span className="value">{profile.gender}</span>
+  </div>
+
+  <div className="profile-item">
+    <span className="label">Weight</span>
+    <span className="value">{profile.weight} kg</span>
+  </div>
+
+  <div className="profile-item">
+    <span className="label">Height</span>
+    <span className="value">{profile.height} cm</span>
+  </div>
+
+  <div className="profile-item">
+    <span className="label">Goal</span>
+    <span className="value">{profile.goal}</span>
+  </div>
+
+  <div className="profile-item">
+    <span className="label">Activity Level</span>
+    <span className="value">{profile.activity}</span>
+  </div>
+
+  <button onClick={handleEdit}>Edit Profile</button>
+
+</div>
+
     </div>
   );
 }

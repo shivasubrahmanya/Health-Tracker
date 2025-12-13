@@ -29,6 +29,7 @@ function SignUp() {
       alert(data.message || "Signup failed");
       return;
     }
+    localStorage.setItem("token", data.token);
 
     alert("Signup successful!");
 
