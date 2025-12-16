@@ -1,17 +1,27 @@
 import mongoose from "mongoose";
 
-const dailySchema = new mongoose.Schema({
-  userId: mongoose.Schema.Types.ObjectId,
+const dailyInputSchema = new mongoose.Schema({
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true
+  },
+
   meals: String,
-  water: String,
-  sleep: String,
-  stress: String,
+  water: Number,
+  sleep: Number,
+  steps: Number,
+  stress: Number,
   mood: String,
-  steps: String,
+
   exercise: String,
   symptoms: String,
   notes: String,
-  date: { type: Date, default: Date.now }
+
+  date: {
+    type: Date,
+    default: () => new Date().setHours(0, 0, 0, 0)
+  }
 });
 
-export default mongoose.model("DailyInput", dailySchema);
+export default mongoose.model("DailyInput", dailyInputSchema);

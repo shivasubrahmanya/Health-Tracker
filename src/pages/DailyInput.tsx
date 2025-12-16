@@ -19,11 +19,36 @@ function DailyInput() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log("Submitted:", form);
-    alert("Daily input submitted!");
-  };
+const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+
+  const token = localStorage.getItem("token");
+  if (!token) {
+    alert("You are not logged in");
+    return;
+  }
+
+  console.log("Submitting to backend:", form);
+
+  const res = await fetch("http://localhost:5000/api/v1/daily-input", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(form),
+  });
+
+  const data = await res.json();
+  console.log("Backend response:", data);
+
+  if (!res.ok) {
+    alert(data.message || "Failed to save daily input");
+    return;
+  }
+
+  alert("Daily input saved successfully!");
+};
 
   return (
     <div className="input-container">
