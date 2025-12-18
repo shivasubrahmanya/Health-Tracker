@@ -19,6 +19,15 @@ function DailyInput() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
+const moodMap: Record<string, number> = {
+  "😊 Happy": 3,
+  "😐 Neutral": 2,
+  "😔 Sad": 1,
+  "😫 Tired": 1,
+  "😡 Angry": 1,
+  "😰 Anxious": 1
+};
+
 const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
   e.preventDefault();
 
@@ -28,7 +37,10 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     return;
   }
 
-  console.log("Submitting to backend:", form);
+  const payload = {
+    ...form,
+    mood: moodMap[form.mood] // ✅ CONVERT HERE
+  };
 
   const res = await fetch("http://localhost:5000/api/v1/daily-input", {
     method: "POST",
@@ -36,11 +48,10 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify(form),
+    body: JSON.stringify(payload),
   });
 
   const data = await res.json();
-  console.log("Backend response:", data);
 
   if (!res.ok) {
     alert(data.message || "Failed to save daily input");
@@ -49,6 +60,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 
   alert("Daily input saved successfully!");
 };
+
 
   return (
     <div className="input-container">
