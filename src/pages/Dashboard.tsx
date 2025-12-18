@@ -1,133 +1,129 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import StatRing from "../components/StatRing";
+import SummaryBarChart from "../components/SummaryBarChart";
+import WeeklyLineChart from "../components/WeeklyLineChart";
+import MoodMealsCard from "../components/MoodMealsCard";
+import "../App.css";
 
-/* ---------------- TYPES ---------------- */
-
-interface DailyInput {
-  steps?: number;
-  water?: number;
-  sleep?: number;
-  stress?: number;
-  mood?: number;
-  meals?: string;
-  createdAt?: string;
+interface DailyInputData {
+  steps: number;
+  water: number;
+  sleep: number;
+  stress: number;
+  mood: number;
+  meals: string;
 }
 
-/* ---------------- COMPONENT ---------------- */
+interface HistoryEntry {
+  date: string;
+  steps: number;
+}
 
-const Dashboard: React.FC = () => {
-  const [dailyData, setDailyData] = useState<DailyInput | null>(null);
-  const navigate = useNavigate();
+const moodMapReverse: Record<number, { emoji: string; status: string }> = {
+  3: { emoji: "😊", status: "Happy" },
+  2: { emoji: "😐", status: "Neutral" },
+  1: { emoji: "😔", status: "Sad" }
+};
 
-  const token = localStorage.getItem("token");
+const Dashboard = () => {
+  const [dailyData, setDailyData] = useState<DailyInputData | null>(null);
+  const [weeklyHistory, setWeeklyHistory] = useState<HistoryEntry[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const moodMap: Record<number, string> = {
-    1: "😞 Sad",
-    2: "😐 Neutral",
-    3: "😊 Happy",
-    4: "😁 Very Happy"
+  const defaultData: DailyInputData = {
+    steps: 4500,
+    water: 2,
+    sleep: 7,
+    stress: 4,
+    mood: 3,
+    meals: "Breakfast: Oats\nLunch: Rice & Veggies"
   };
 
-useEffect(() => {
-  const fetchLatestInput = async () => {
-    try {
-      const res = await fetch(
-        "http://localhost:5000/api/v1/daily-input/latest",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        if (!token) return;
+
+        const todayRes = await fetch(
+          "http://localhost:5000/api/v1/daily-input/today",
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+
+        if (todayRes.ok) {
+          const data = await todayRes.json();
+          if (data) setDailyData(data);
         }
-      );
 
-      const data = await res.json();
-      setDailyData(data);
-    } catch (error) {
-      console.error("Failed to fetch dashboard data", error);
-    }
+        const historyRes = await fetch(
+          "http://localhost:5000/api/v1/daily-input/history",
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+
+        if (historyRes.ok) {
+          setWeeklyHistory(await historyRes.json());
+        }
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (loading) {
+    return <div className="dashboard-container">Loading health data...</div>;
+  }
+
+  const displayData = dailyData || defaultData;
+  const moodInfo = moodMapReverse[displayData.mood] || {
+    emoji: "😐",
+    status: "Neutral"
   };
 
-  fetchLatestInput();
-}, [token]);
+  const barData = [
+    { name: "Steps", value: displayData.steps },
+    { name: "Water", value: displayData.water },
+    { name: "Sleep", value: displayData.sleep },
+    { name: "Stress", value: displayData.stress }
+  ];
 
+  const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+  const weeklyChartData =
+    weeklyHistory.length > 0
+      ? weeklyHistory.map((h) => ({
+          day: days[new Date(h.date).getDay()],
+          steps: h.steps || 0
+        }))
+      : [
+          { day: "Mon", steps: 3000 },
+          { day: "Tue", steps: 4500 },
+          { day: "Wed", steps: 6000 },
+          { day: "Thu", steps: 8000 },
+          { day: "Fri", steps: 7500 },
+          { day: "Sat", steps: 9000 },
+          { day: "Sun", steps: 11000 }
+        ];
 
   return (
     <div className="dashboard-container">
+      <h1 className="dashboard-title">Welcome Back 👋</h1>
+      <p className="dashboard-subtitle">Your latest health summary</p>
 
-      <h1 className="title">Welcome Back 👋</h1>
-      <p className="subtitle">
-        {dailyData
-          ? "Here is your latest health summary"
-          : "Add your first daily health input"}
-      </p>
-
-      <div className="grid-box">
-
-        <div className="card">
-          <p className="label">Steps</p>
-          <p className="value">{dailyData?.steps ?? "--"}</p>
-        </div>
-
-        <div className="card">
-          <p className="label">Water Intake</p>
-          <p className="value">
-            {dailyData?.water ? `${dailyData.water} L` : "--"}
-          </p>
-        </div>
-
-        <div className="card">
-          <p className="label">Sleep</p>
-          <p className="value">
-            {dailyData?.sleep ? `${dailyData.sleep} hrs` : "--"}
-          </p>
-        </div>
-
-        <div className="card">
-          <p className="label">Stress Level</p>
-          <p className="value">
-            {dailyData?.stress ? `${dailyData.stress} / 10` : "--"}
-          </p>
-        </div>
-
-        <div className="card">
-          <p className="label">Mood</p>
-          <p className="value">
-            {dailyData?.mood ? moodMap[dailyData.mood] : "--"}
-          </p>
-        </div>
-
-        <div className="card">
-          <p className="label">Meals</p>
-          <p className="value">
-            {dailyData?.meals || "Not logged"}
-          </p>
-        </div>
-
+      <div className="ring-grid">
+        <StatRing title="Steps" value={displayData.steps} max={10000} subLabel="/ 10,000" color="#10b981" />
+        <StatRing title="Water" value={displayData.water} max={3} unit="L" subLabel="3 liters" color="#3b82f6" />
+        <StatRing title="Sleep" value={displayData.sleep} max={9} unit="hrs" subLabel="Goal: 9" color="#a855f7" />
+        <MoodMealsCard moodEmoji={moodInfo.emoji} moodStatus={moodInfo.status} meals={displayData.meals} />
       </div>
 
-      <div className="ai-box">
-        <div>
-          <h2>Your AI Wellness Score</h2>
-
-          <p className="ai-text">
-            {dailyData
-              ? "You're doing great today! Keep it up 🎉"
-              : "Log your daily health to get AI insights"}
-          </p>
-
-          <button
-            className="input-btn"
-            onClick={() => navigate("/daily-input")}
-          >
-            + Add Today’s Input
-          </button>
-        </div>
-
-        <div className="score-circle">
-          {dailyData ? 82 : "--"}
-        </div>
+      <div className="charts-grid">
+        <SummaryBarChart data={barData} />
+        <WeeklyLineChart data={weeklyChartData} />
       </div>
-
     </div>
   );
 };

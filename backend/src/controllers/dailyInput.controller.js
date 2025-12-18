@@ -66,3 +66,22 @@ export const getLatestInput = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+/**
+ * GET WEEKLY HISTORY (LAST 7 ENTRIES)
+ */
+export const getWeeklyHistory = async (req, res) => {
+  try {
+    const userId = req.user.id;
+
+    // Fetch last 7 entries, sorted by date ascending
+    const history = await DailyInput.find({ userId })
+      .sort({ date: -1 })
+      .limit(7);
+
+    // Reverse to show oldest to newest
+    res.status(200).json(history.reverse());
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
