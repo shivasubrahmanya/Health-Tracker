@@ -726,7 +726,9 @@ body {
   font-size: 15px;
 }
 
-
+/* ===========================================================
+   12. DASHBOARD PAGE
+   =========================================================== */
 * {
   box-sizing: border-box;
 }
@@ -736,60 +738,59 @@ body {
   min-height: 100vh;
   font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   background:
-    radial-gradient(1200px 600px at 10% -10%, #e0e7ff 0%, transparent 60%),
-    radial-gradient(1000px 500px at 90% 10%, #dcfce7 0%, transparent 55%),
+    radial-gradient(1200px 700px at 15% -10%, #d1fae5 0%, transparent 60%),
+    radial-gradient(1200px 700px at 85% 10%, #dbeafe 0%, transparent 60%),
     linear-gradient(180deg, #f8fafc, #eef2ff);
   color: #0f172a;
 }
 
 .dashboard-container {
-  max-width: 1680px;
+  max-width: 1760px;
   margin: 0 auto;
-  padding: 96px 48px 48px;
+  padding: 96px 56px 56px;
   min-height: 100vh;
 }
 
 .dashboard-title {
-  font-size: 32px;
+  font-size: 34px;
   font-weight: 800;
-  letter-spacing: -0.6px;
+  letter-spacing: -0.7px;
 }
 
 .dashboard-subtitle {
-  margin-top: 4px;
-  font-size: 15px;
+  font-size: 16px;
   color: #64748b;
-  margin-bottom: 36px;
+  margin-bottom: 44px;
 }
 
 .glass-card {
   background: linear-gradient(
     180deg,
-    rgba(255, 255, 255, 0.96),
-    rgba(248, 250, 252, 0.96)
+    rgba(255, 255, 255, 0.97),
+    rgba(248, 250, 252, 0.97)
   );
-  border-radius: 28px;
-  padding: 32px;
+  border-radius: 30px;
+  padding: 34px;
   box-shadow:
-    0 28px 70px rgba(15, 23, 42, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.75);
+    0 30px 80px rgba(15, 23, 42, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
   transition:
     transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .glass-card:hover {
-  transform: translateY(-12px) scale(1.015);
+  transform: translateY(-14px) scale(1.02);
   box-shadow:
-    0 50px 110px rgba(15, 23, 42, 0.16),
-    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    0 60px 140px rgba(15, 23, 42, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
 }
 
 .ring-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 40px;
-  margin-bottom: 48px;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 44px;
+  margin-bottom: 56px;
 }
 
 .ring-card {
@@ -798,61 +799,61 @@ body {
 }
 
 .ring-title {
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 600;
   color: #64748b;
-  margin-bottom: 6px;
+  margin-bottom: 10px;
 }
 
 .ring-main-value {
-  font-size: 36px;
+  font-size: 40px;
   font-weight: 800;
-  letter-spacing: -0.6px;
+  letter-spacing: -0.7px;
 }
 
 .ring-sub-value {
-  font-size: 13px;
+  font-size: 14px;
   color: #94a3b8;
 }
 
 .ring-emoji {
   position: absolute;
-  top: 20px;
-  right: 24px;
-  font-size: 26px;
-  opacity: 0.9;
+  top: 22px;
+  right: 26px;
+  font-size: 28px;
+  opacity: 0.95;
 }
 
 .ring-svg {
-  width: 200px;
-  height: 200px;
-  margin: 14px auto 6px;
+  width: 220px;
+  height: 220px;
+  margin: 16px auto 10px;
 }
 
 .ring-track-outer {
   fill: none;
   stroke: #e5e7eb;
-  stroke-width: 20;
+  stroke-width: 22;
 }
 
 .ring-track-inner {
   fill: none;
   stroke: #f1f5f9;
-  stroke-width: 16;
+  stroke-width: 18;
 }
 
 .ring-progress {
   fill: none;
-  stroke-width: 16;
+  stroke-width: 18;
   stroke-linecap: round;
   transform: rotate(-90deg);
   transform-origin: center;
-  transition: stroke-dashoffset 1s cubic-bezier(0.4, 0, 0.2, 1);
-  filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.16));
+  transition: stroke-dashoffset 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+  filter: drop-shadow(0 10px 22px rgba(0, 0, 0, 0.18));
 }
 
 .ring-percent {
-  font-size: 36px;
+  font-size: 40px;
   font-weight: 800;
   fill: #020617;
   text-anchor: middle;
@@ -861,8 +862,8 @@ body {
 
 .charts-grid {
   display: grid;
-  grid-template-columns: 3.8fr 6.2fr;
-  gap: 40px;
+  grid-template-columns: 4fr 6fr;
+  gap: 44px;
   align-items: stretch;
 }
 
@@ -871,16 +872,16 @@ body {
 }
 
 .chart-title {
-  font-size: 21px;
+  font-size: 22px;
   font-weight: 700;
-  letter-spacing: -0.35px;
+  letter-spacing: -0.4px;
 }
 
 .custom-tooltip {
   background: #ffffff;
-  padding: 14px 18px;
-  border-radius: 16px;
-  box-shadow: 0 18px 46px rgba(0, 0, 0, 0.16);
+  padding: 16px 20px;
+  border-radius: 18px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
   font-size: 14px;
   font-weight: 600;
   color: #0f172a;
@@ -894,34 +895,34 @@ body {
 }
 
 .mood-title {
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 600;
   color: #64748b;
-  margin-bottom: 14px;
+  margin-bottom: 16px;
 }
 
 .mood-emoji {
-  font-size: 52px;
-  margin-bottom: 6px;
+  font-size: 56px;
+  margin-bottom: 10px;
 }
 
 .mood-status {
-  font-size: 19px;
+  font-size: 20px;
   font-weight: 700;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 
 .mood-meals-box {
-  background: linear-gradient(180deg, #f8fafc, #eef2f7);
-  border-radius: 18px;
-  padding: 16px;
-  font-size: 13px;
+  background: linear-gradient(180deg, #f8fafc, #edf2f7);
+  border-radius: 20px;
+  padding: 18px;
+  font-size: 14px;
   text-align: left;
   flex-grow: 1;
 }
 
 .mood-meals-line {
-  margin-bottom: 8px;
+  margin-bottom: 10px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -931,8 +932,8 @@ body {
   width: 100%;
   border: none;
   outline: none;
-  margin-top: 10px;
-  font-size: 13px;
+  margin-top: 12px;
+  font-size: 14px;
   background: transparent;
   color: #475569;
 }
@@ -941,20 +942,20 @@ body {
   color: #94a3b8;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1280px) {
   .charts-grid {
     grid-template-columns: 1fr;
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 720px) {
   .dashboard-container {
-    padding: 24px;
+    padding: 28px;
   }
 
   .ring-svg {
-    width: 170px;
-    height: 170px;
+    width: 180px;
+    height: 180px;
   }
 }
 
