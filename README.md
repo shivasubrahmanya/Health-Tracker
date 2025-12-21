@@ -1,73 +1,108 @@
-# React + TypeScript + Vite
+# Health Tracker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A comprehensive health tracking application built with React and Node.js. Track your daily health metrics, mood, and meals, and get AI-powered insights to improve your well-being.
 
-Currently, two official plugins are available:
+## 🚀 Status
+**Current Version:** 1.0.0
+**Status:** Active Development
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🛠️ Tech Stack
 
-## React Compiler
+### Frontend
+- **Framework:** React 19 (Vite)
+- **Language:** TypeScript
+- **Styling:** CSS Modules / Vanilla CSS
+- **Visualization:** Recharts
+- **Routing:** React Router v7
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Backend
+- **Runtime:** Node.js
+- **Framework:** Express.js
+- **Database:** MongoDB
+- **ODM:** Mongoose
+- **Authentication:** JWT (JSON Web Tokens)
 
-## Expanding the ESLint configuration
+## ✨ Features Implemented
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 1. User Authentication
+- Secure **Login** and **Sign Up** functionality.
+- JWT-based authentication for secure session management.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### 2. Dashboard
+- **Visual Analytics:** Real-time health data visualization using Recharts.
+  - *Stat Rings:* Quick circular progress views of daily goals.
+  - *Summary Bar Charts:* Weekly overview of health metrics.
+  - *Weekly Line Charts:* Trend analysis over time.
+- **Summary Cards:** Quick access to key daily metrics (Water, Sleep, Steps).
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### 3. Daily Tracking
+- **Daily Input:** Intuitive interface to log your daily stats.
+- **Mood & Meals:** dedicated cards to track your emotional state and nutritional intake with the `MoodMealsCard`.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### 4. Smart Insights
+- **AI Tips:** Personalized health recommendations based on your logs.
+- **Diet Tips:** specialized AI-driven dietary advice (`AIDietTips`).
+
+### 5. Profile Management
+- **Profile Page:** Manage user details and settings.
+- **Profile Setup:** Guided flow for initial user configuration.
+
+## 📦 Setup & Installation
+
+### Prerequisites
+- Node.js (v18 or higher)
+- MongoDB (Local instance or Atlas URI)
+
+### 1. Clone the Repository
+```bash
+git clone <repository-url>
+cd Health-Tracker-main
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### 2. Backend Setup
+Navigate to the backend directory and install dependencies:
+```bash
+cd backend
+npm install
 ```
+
+Create a `.env` file in the `backend/` directory with your configuration:
+```env
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_super_secret_key
+PORT=5000
+```
+
+Start the server:
+```bash
+npm start
+# or for development with nodemon:
+npm run dev
+```
+
+### 3. Frontend Setup
+In a new terminal window, navigate to the root directory (if not already there) and install dependencies:
+```bash
+npm install
+```
+
+Start the development server:
+```bash
+npm run dev
+```
+
+The application should now be running at `http://localhost:5173`.
+
+## 🗺️ Roadmap / Future Plans
+
+This project is constantly evolving. Here is what is planned for future updates:
+
+- [ ] **Mobile Optimization:** Enhance the responsive design for a seamless mobile experience.
+- [ ] **Advanced AI Analytics:** Deeper integration with LLMs for detailed weekly health reports and anomaly detection.
+- [ ] **Social Features:** Friends, leaderboards, and community challenges.
+- [ ] **Wearable Integration:** Sync data from Fitbit, Apple Health, or Google Fit.
+- [ ] **Dark Mode:** Full system-wide dark mode support.
+- [ ] **Export Data:** Ability to export health reports as PDF/CSV.
+
+---
+*Built with ❤️ by Shiva*
