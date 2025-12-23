@@ -3,6 +3,7 @@ import cors from "cors";
 import authRoutes from "./routes/auth.routes.js";
 import profileRoutes from "./routes/profile.routes.js";
 import dailyInputRoutes from "./routes/dailyInput.routes.js";
+import aiRoutes from "./routes/ai.routes.js";
 
 
 const app = express();
@@ -13,4 +14,5 @@ app.use(express.json());
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/profile", profileRoutes);
 app.use("/api/v1/daily-input", dailyInputRoutes);
+app.use("/api/ai", aiRoutes);
 export default app;
