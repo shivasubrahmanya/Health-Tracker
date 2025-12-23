@@ -1,58 +1,85 @@
+import DailyInput from "../models/dailyinput.model.js";
+import { getHealthInsightsFromLLM } from "../services/llm.service.js";
+
 export const getAIInsights = async (req, res) => {
-  try {
-    const userId = req.user._id;
-    console.log("AI userId:", userId);
+    try {
+        // 🔑 MUST match DailyInput controller
+        const userId = req.user.id;
 
-    const inputs = await DailyInput.find({ user: userId })
-      .sort({ date: -1 })
-      .limit(7);
+        // 🔒 NORMALIZE TODAY TO MIDNIGHT
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
 
-    console.log("AI inputs count:", inputs.length);
+        // ✅ FETCH ONLY TODAY'S INPUT
+        const input = await DailyInput.findOne({
+            userId,
+            date: today
+        });
 
-    if (inputs.length < 1) {
-      return res.json({
-        status: "INSUFFICIENT_DATA",
-        message: "Log at least 3 days to unlock AI insights"
-      });
-    }
+        if (!input) {
+            return res.json({
+                status: "NO_DATA",
+                data: {
+                    daily_tips: [
+                        "Log today's health data to unlock AI tips"
+                    ],
+                    diet_plan: {
+                        day: "—",
+                        meals: {
+                            breakfast: "—",
+                            lunch: "—",
+                            dinner: "—",
+                            snacks: "—"
+                        },
+                        calories: 0
+                    }
+                }
+            });
+        }
 
-    const formattedData = inputs.map(d => ({
-      sleep: d.sleepHours,
-      water: d.waterIntake,
-      steps: d.steps,
-      mood: d.mood
-    }));
+        // ✅ SANITIZE TODAY'S DATA ONLY
+        const formattedData = {
+            water: Math.min(Number(input.water) || 0, 10),     // max 10 L
+            sleep: Math.min(Number(input.sleep) || 0, 12),     // max 12 hrs
+            steps: Math.min(Number(input.steps) || 0, 30000),  // max 30k
+            stress: Math.min(Number(input.stress) || 0, 10),
+            mood: Math.min(Number(input.mood) || 0, 5)
+        };
 
-    const prompt = `
-User health data (last ${formattedData.length} days):
+        // ✅ PROMPT USES ONLY TODAY
+        const prompt = `
+User's health data for TODAY:
 ${JSON.stringify(formattedData, null, 2)}
 
 Generate:
-- 4 daily tips
-- 1-day diet plan
-- Total calories
+- 4 daily health tips for today
+- 1-day diet plan for today
 
-JSON format:
+Return ONLY JSON:
 {
   "daily_tips": [],
   "diet_plan": {
-    "day": "",
-    "meals": {},
+    "day": "Today",
+    "meals": {
+      "breakfast": "",
+      "lunch": "",
+      "dinner": "",
+      "snacks": ""
+    },
     "calories": number
   }
 }
 `;
 
-    const llmResponse = await getHealthInsightsFromLLM(prompt);
-    const parsed = JSON.parse(llmResponse);
+        const aiData = await getHealthInsightsFromLLM(prompt);
 
-    res.json({
-      status: "SUCCESS",
-      data: parsed
-    });
+        return res.json({
+            status: "SUCCESS",
+            data: aiData
+        });
 
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "AI generation failed" });
-  }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "AI generation failed" });
+    }
 };
