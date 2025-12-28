@@ -1,5 +1,6 @@
 import DailyInput from "../models/dailyinput.model.js";
 import { getHealthInsightsFromLLM } from "../services/llm.service.js";
+import axios from "axios";
 
 export const getAIInsights = async (req, res) => {
     try {
@@ -32,7 +33,8 @@ export const getAIInsights = async (req, res) => {
                             snacks: "—"
                         },
                         calories: 0
-                    }
+                    },
+                    ml_analysis: null
                 }
             });
         }
@@ -46,13 +48,41 @@ export const getAIInsights = async (req, res) => {
             mood: Math.min(Number(input.mood) || 0, 5)
         };
 
-        // ✅ PROMPT USES ONLY TODAY
+        // 🧠 CALL PYTHON ML SERVICE
+        let mlInsights = {};
+        try {
+            const mlUrl = process.env.ML_SERVICE_URL || "http://localhost:8000";
+
+            // Parallel calls for efficiency
+            const [riskRes, sleepRes] = await Promise.all([
+                axios.post(`${mlUrl}/calc/risk`, formattedData),
+                axios.post(`${mlUrl}/predict/sleep`, formattedData)
+            ]);
+
+            mlInsights = {
+                risk_analysis: riskRes.data,
+                sleep_prediction: sleepRes.data
+            };
+        } catch (mlError) {
+            console.error("⚠️ ML Service unavailable:", mlError.message);
+            // Fallback object to prevent crash
+            mlInsights = {
+                error: "ML Service unavailable",
+                risk_analysis: { risk_score: "N/A", risk_level: "Unknown" },
+                sleep_prediction: { predicted_sleep_hours: "N/A" }
+            };
+        }
+
+        // ✅ PROMPT USES DATA + ML INSIGHTS
         const prompt = `
 User's health data for TODAY:
 ${JSON.stringify(formattedData, null, 2)}
 
+ML Model Analysis:
+${JSON.stringify(mlInsights, null, 2)}
+
 Generate:
-- 4 daily health tips for today
+- 4 daily health tips for today (Incorporate the ML risk analysis if high)
 - 1-day diet plan for today
 
 Return ONLY JSON:
@@ -75,7 +105,10 @@ Return ONLY JSON:
 
         return res.json({
             status: "SUCCESS",
-            data: aiData
+            data: {
+                ...aiData,
+                ml_analysis: mlInsights // Pass raw ML data to frontend too
+            }
         });
 
     } catch (error) {

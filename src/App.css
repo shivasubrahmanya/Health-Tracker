@@ -1489,3 +1489,79 @@ p {
     padding: 18px;
   }
 }
+/* ===========================================================
+   13. ML INSIGHTS CARD
+   =========================================================== */
+.ml-card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ml-grid {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.risk-section {
+  text-align: center;
+}
+
+.risk-circle-container {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.risk-score-value {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.risk-score-max {
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+
+.risk-label {
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.sleep-section {
+  text-align: center;
+}
+
+.prediction-box {
+  background: rgba(255, 255, 255, 0.5);
+  padding: 15px;
+  border-radius: 12px;
+  border-left: 4px solid #6c5ce7;
+  min-width: 200px;
+}
+
+.prediction-label {
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+
+.prediction-value {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #6c5ce7;
+}
+
+.prediction-sub {
+  font-size: 0.8rem;
+  margin-top: 5px;
+}
+
