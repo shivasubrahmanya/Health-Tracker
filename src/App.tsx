@@ -8,7 +8,6 @@ import ProfileSetup from "./pages/ProfileSetup";
 import Dashboard from "./pages/Dashboard";
 import DailyInput from "./pages/DailyInput";
 import AiTips from "./pages/AiTips";
-import AIDietTips from "./pages/AIDietTips";
 import ProfilePage from "./pages/ProfilePage";
 // import Settings from "./pages/Settings";  // add if needed
 
@@ -45,7 +44,6 @@ function AppWrapper() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/daily-input" element={<DailyInput />} />
         <Route path="/ai-tips" element={<AiTips />} />
-        <Route path="/ai-diet" element={<AIDietTips />} />
         <Route path="/profile" element={<ProfilePage />} />
 
         {/* ADD SETTINGS PAGE IF EXISTS */}

@@ -7,7 +7,7 @@ export default function MainNavBar() {
     <nav className="navbar main-navbar">
 
       {/* LOGO */}
-      <h2 className="nav-logo" onClick={() => navigate("/dashboard")} style={{cursor: "pointer"}}>
+      <h2 className="nav-logo" onClick={() => navigate("/dashboard")} style={{ cursor: "pointer" }}>
         Health Tracker
       </h2>
 
@@ -16,7 +16,6 @@ export default function MainNavBar() {
         <li onClick={() => navigate("/dashboard")}>Dashboard</li>
         <li onClick={() => navigate("/daily-input")}>Daily Input</li>
         <li onClick={() => navigate("/ai-tips")}>AI Tips</li>
-        <li onClick={() => navigate("/ai-diet")}>AI Diet Plan</li>
         <li onClick={() => navigate("/profile")}>Profile</li>
         <li onClick={() => navigate("/settings")}>Settings</li>
       </ul>

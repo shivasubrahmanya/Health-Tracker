@@ -48,66 +48,31 @@ export const getAIInsights = async (req, res) => {
             mood: Math.min(Number(input.mood) || 0, 5)
         };
 
-        // 🧠 CALL PYTHON ML SERVICE
-        let mlInsights = {};
-        try {
-            const mlUrl = process.env.ML_SERVICE_URL || "http://localhost:8000";
-
-            // Parallel calls for efficiency
-            const [riskRes, sleepRes] = await Promise.all([
-                axios.post(`${mlUrl}/calc/risk`, formattedData),
-                axios.post(`${mlUrl}/predict/sleep`, formattedData)
-            ]);
-
-            mlInsights = {
-                risk_analysis: riskRes.data,
-                sleep_prediction: sleepRes.data
-            };
-        } catch (mlError) {
-            console.error("⚠️ ML Service unavailable:", mlError.message);
-            // Fallback object to prevent crash
-            mlInsights = {
-                error: "ML Service unavailable",
-                risk_analysis: { risk_score: "N/A", risk_level: "Unknown" },
-                sleep_prediction: { predicted_sleep_hours: "N/A" }
-            };
-        }
-
-        // ✅ PROMPT USES DATA + ML INSIGHTS
+        // 🧠 AI COMPLETE ANALYSIS (Replaces Python ML Service)
         const prompt = `
-User's health data for TODAY:
+User's Health Data (Today):
 ${JSON.stringify(formattedData, null, 2)}
 
-ML Model Analysis:
-${JSON.stringify(mlInsights, null, 2)}
-
-Generate:
-- 4 daily health tips for today (Incorporate the ML risk analysis if high)
-- 1-day diet plan for today
-
-Return ONLY JSON:
-{
-  "daily_tips": [],
-  "diet_plan": {
-    "day": "Today",
-    "meals": {
-      "breakfast": "",
-      "lunch": "",
-      "dinner": "",
-      "snacks": ""
-    },
-    "calories": number
-  }
-}
+Task:
+Analyze this data. 
+- If stress is high and sleep is low, risk should be higher.
+- If steps are low, suggest movement tips.
+- Predict sleep based on activity (more activity usually = better sleep).
 `;
 
+        // The LLM now returns all insights including risk & sleep
         const aiData = await getHealthInsightsFromLLM(prompt);
 
         return res.json({
             status: "SUCCESS",
             data: {
-                ...aiData,
-                ml_analysis: mlInsights // Pass raw ML data to frontend too
+                daily_tips: aiData.daily_tips,
+                diet_plan: aiData.diet_plan,
+                // ✅ ADAPTER: Map AI risk/sleep output to the "ml_analysis" key expected by frontend
+                ml_analysis: {
+                    risk_analysis: aiData.risk_analysis,
+                    sleep_prediction: aiData.sleep_prediction
+                }
             }
         });
 
