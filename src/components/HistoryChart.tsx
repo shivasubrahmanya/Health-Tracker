@@ -52,7 +52,7 @@ const HistoryChart = ({ data, dataKey, color, unit = "" }: Props) => {
     const chartData = [...data].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 
     return (
-        <div className="glass-card chart-card" style={{ marginBottom: "2rem", padding: "1.5rem" }}>
+        <div className="glass-card chart-card" style={{ marginBottom: "2rem", padding: "1.5rem", width: "100%" }}>
             <div className="chart-header" style={{ marginBottom: "1rem" }}>
                 <h3 className="chart-title" style={{ textTransform: "capitalize" }}>
                     {dataKey} Trends
