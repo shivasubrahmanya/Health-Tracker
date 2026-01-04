@@ -16,6 +16,7 @@ export default function MainNavBar() {
         <li onClick={() => navigate("/dashboard")}>Dashboard</li>
         <li onClick={() => navigate("/daily-input")}>Daily Input</li>
         <li onClick={() => navigate("/ai-tips")}>AI Tips</li>
+        <li onClick={() => navigate("/history")}>History</li>
         <li onClick={() => navigate("/profile")}>Profile</li>
         <li onClick={() => navigate("/settings")}>Settings</li>
       </ul>

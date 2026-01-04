@@ -9,6 +9,7 @@ import Dashboard from "./pages/Dashboard";
 import DailyInput from "./pages/DailyInput";
 import AiTips from "./pages/AiTips";
 import ProfilePage from "./pages/ProfilePage";
+import History from "./pages/History";
 // import Settings from "./pages/Settings";  // add if needed
 
 import NavBar from "./components/NavBar";      // Home navbar
@@ -44,6 +45,7 @@ function AppWrapper() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/daily-input" element={<DailyInput />} />
         <Route path="/ai-tips" element={<AiTips />} />
+        <Route path="/history" element={<History />} />
         <Route path="/profile" element={<ProfilePage />} />
 
         {/* ADD SETTINGS PAGE IF EXISTS */}
