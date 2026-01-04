@@ -17,7 +17,7 @@ export default function Home() {
           </h1>
 
           <p className="hero-desc">
-            Track your meals, sleep, mood, stress, hydration & more — 
+            Track your meals, sleep, mood, stress, hydration & more —
             get AI-powered insights to improve your health.
           </p>
 
@@ -147,10 +147,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* FOOTER */}
-      <footer className="footer">
-        <p>© 2025 Health Tracker — All Rights Reserved</p>
-      </footer>
+
 
     </div>
   );

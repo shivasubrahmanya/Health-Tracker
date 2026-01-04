@@ -13,12 +13,7 @@ export const saveDailyInput = async (req, res) => {
     const existing = await DailyInput.findOne({ userId, date: today });
 
     if (existing) {
-      const updated = await DailyInput.findOneAndUpdate(
-        { userId, date: today },
-        req.body,
-        { new: true }
-      );
-      return res.status(200).json(updated);
+      return res.status(400).json({ message: "You have already logged your data for today!" });
     }
 
     const created = await DailyInput.create({

@@ -54,6 +54,9 @@ function AppWrapper() {
         {/* FALLBACK → HOME */}
         <Route path="*" element={<Home />} />
       </Routes>
+      <footer className="footer" style={{ marginTop: "auto" }}>
+        <p>© 2025 Health Tracker — All Rights Reserved</p>
+      </footer>
     </>
   );
 }

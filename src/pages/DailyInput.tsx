@@ -19,47 +19,47 @@ function DailyInput() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-const moodMap: Record<string, number> = {
-  "😊 Happy": 3,
-  "😐 Neutral": 2,
-  "😔 Sad": 1,
-  "😫 Tired": 1,
-  "😡 Angry": 1,
-  "😰 Anxious": 1
-};
-
-const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-  e.preventDefault();
-
-  const token = localStorage.getItem("token");
-  if (!token) {
-    alert("You are not logged in");
-    return;
-  }
-
-  const payload = {
-    ...form,
-    mood: moodMap[form.mood] // ✅ CONVERT HERE
+  const moodMap: Record<string, number> = {
+    "😊 Happy": 3,
+    "😐 Neutral": 2,
+    "😔 Sad": 1,
+    "😫 Tired": 1,
+    "😡 Angry": 1,
+    "😰 Anxious": 1
   };
 
-  const res = await fetch("http://localhost:5000/api/v1/daily-input", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify(payload),
-  });
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
-  const data = await res.json();
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("You are not logged in");
+      return;
+    }
 
-  if (!res.ok) {
-    alert(data.message || "Failed to save daily input");
-    return;
-  }
+    const payload = {
+      ...form,
+      mood: moodMap[form.mood] // ✅ CONVERT HERE
+    };
 
-  alert("Daily input saved successfully!");
-};
+    const res = await fetch("http://localhost:5000/api/v1/daily-input", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(payload),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      alert(data.message || "Failed to save daily input");
+      return;
+    }
+
+    alert("Daily input saved successfully!");
+  };
 
 
   return (
@@ -67,122 +67,149 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
       <h1 className="title">Daily Health Input</h1>
       <p className="subtitle">Enter your health details for today</p>
 
-      <form className="input-form" onSubmit={handleSubmit}>
-        
-        {/* MEALS */}
-        <div className="input-group">
-          <label>Meals (Describe what you ate)</label>
-          <textarea
-            name="meals"
-            value={form.meals}
-            onChange={handleChange}
-            placeholder="Breakfast: Oats... Lunch: Rice + Curry..."
-          />
+      <form className="input-form-grid" onSubmit={handleSubmit}>
+
+        {/* SECTION 1: NUTRITION */}
+        <div className="form-section glass-card">
+          <div className="section-header-row">
+            <span className="section-icon">🥗</span>
+            <h3>Nutrition & Hydration</h3>
+          </div>
+
+          <div className="input-group">
+            <label>Meals</label>
+            <textarea
+              name="meals"
+              value={form.meals}
+              onChange={handleChange}
+              placeholder="What did you eat today?"
+            />
+          </div>
+
+          <div className="input-group">
+            <label>Water (L)</label>
+            <input
+              type="number"
+              name="water"
+              value={form.water}
+              onChange={handleChange}
+              placeholder="2.0"
+              step="0.1"
+            />
+          </div>
         </div>
 
-        {/* WATER */}
-        <div className="input-group">
-          <label>Water Intake (Liters)</label>
-          <input
-            type="number"
-            name="water"
-            value={form.water}
-            onChange={handleChange}
-            placeholder="e.g., 2.0"
-            step="0.1"
-          />
+        {/* SECTION 2: ACTIVITY & SLEEP */}
+        <div className="form-section glass-card">
+          <div className="section-header-row">
+            <span className="section-icon">🏃</span>
+            <h3>Activity & Sleep</h3>
+          </div>
+
+          <div className="half-inputs">
+            <div className="input-group">
+              <label>Steps</label>
+              <input
+                type="number"
+                name="steps"
+                value={form.steps}
+                onChange={handleChange}
+                placeholder="Ex. 5000"
+              />
+            </div>
+            <div className="input-group">
+              <label>Sleep (Hrs)</label>
+              <input
+                type="number"
+                name="sleep"
+                value={form.sleep}
+                onChange={handleChange}
+                placeholder="7.5"
+                step="0.1"
+              />
+            </div>
+          </div>
+
+          <div className="input-group">
+            <label>Exercise Details</label>
+            <textarea
+              name="exercise"
+              value={form.exercise}
+              onChange={handleChange}
+              placeholder="Running, Gym, Yoga..."
+              style={{ height: "80px" }}
+            />
+          </div>
         </div>
 
-        {/* SLEEP */}
-        <div className="input-group">
-          <label>Sleep Duration (Hours)</label>
-          <input
-            type="number"
-            name="sleep"
-            value={form.sleep}
-            onChange={handleChange}
-            placeholder="e.g., 6.5"
-            step="0.1"
-          />
+        {/* SECTION 3: WELLBEING */}
+        <div className="form-section glass-card">
+          <div className="section-header-row">
+            <span className="section-icon">🧠</span>
+            <h3>Wellbeing</h3>
+          </div>
+
+          <div className="half-inputs">
+            <div className="input-group">
+              <label>Stress (0-10)</label>
+              <input
+                type="number"
+                name="stress"
+                value={form.stress}
+                onChange={handleChange}
+                min="0"
+                max="10"
+                placeholder="5"
+              />
+            </div>
+
+            <div className="input-group">
+              <label>Mood</label>
+              <select name="mood" value={form.mood} onChange={handleChange}>
+                <option value="">Select...</option>
+                <option value="😊 Happy">😊 Happy</option>
+                <option value="😐 Neutral">😐 Neutral</option>
+                <option value="😔 Sad">😔 Sad</option>
+                <option value="😫 Tired">😫 Tired</option>
+                <option value="😡 Angry">😡 Angry</option>
+                <option value="😰 Anxious">😰 Anxious</option>
+              </select>
+            </div>
+          </div>
+
+          <div className="input-group">
+            <label>Symptoms</label>
+            <input
+              type="text"
+              name="symptoms"
+              value={form.symptoms}
+              onChange={handleChange}
+              placeholder="Headache, fatigue..."
+            />
+          </div>
         </div>
 
-        {/* STEPS */}
-        <div className="input-group">
-          <label>Steps Walked</label>
-          <input
-            type="number"
-            name="steps"
-            value={form.steps}
-            onChange={handleChange}
-            placeholder="e.g., 4500"
-          />
+        {/* SECTION 4: NOTES & SUBMIT */}
+        <div className="form-section glass-card">
+          <div className="section-header-row">
+            <span className="section-icon">📝</span>
+            <h3>Daily Notes</h3>
+          </div>
+          <div className="input-group">
+            <textarea
+              name="notes"
+              value={form.notes}
+              onChange={handleChange}
+              placeholder="Any other thoughts for today?"
+              style={{ height: "100px" }}
+            />
+          </div>
+
+          <button className="submit-btn" type="submit">
+            Save Daily Report
+          </button>
         </div>
 
-        {/* STRESS */}
-        <div className="input-group">
-          <label>Stress Level (0 - 10)</label>
-          <input
-            type="number"
-            name="stress"
-            value={form.stress}
-            onChange={handleChange}
-            min="0"
-            max="10"
-            placeholder="e.g., 4"
-          />
-        </div>
-
-        {/* MOOD */}
-        <div className="input-group">
-          <label>Mood</label>
-          <select name="mood" value={form.mood} onChange={handleChange}>
-            <option value="">Select</option>
-            <option value="😊 Happy">😊 Happy</option>
-            <option value="😐 Neutral">😐 Neutral</option>
-            <option value="😔 Sad">😔 Sad</option>
-            <option value="😫 Tired">😫 Tired</option>
-            <option value="😡 Angry">😡 Angry</option>
-            <option value="😰 Anxious">😰 Anxious</option>
-          </select>
-        </div>
-
-        {/* EXERCISE */}
-        <div className="input-group">
-          <label>Exercise You Did</label>
-          <textarea
-            name="exercise"
-            value={form.exercise}
-            onChange={handleChange}
-            placeholder="e.g., Walking - 30 mins"
-          />
-        </div>
-
-        {/* SYMPTOMS */}
-        <div className="input-group">
-          <label>Symptoms (Optional)</label>
-          <input
-            type="text"
-            name="symptoms"
-            value={form.symptoms}
-            onChange={handleChange}
-            placeholder="e.g., Headache, fatigue..."
-          />
-        </div>
-
-        {/* NOTES */}
-        <div className="input-group">
-          <label>Additional Notes</label>
-          <textarea
-            name="notes"
-            value={form.notes}
-            onChange={handleChange}
-            placeholder="Anything special today?"
-          />
-        </div>
-
-        <button className="submit-btn" type="submit">
-          Submit Today’s Input
-        </button>
       </form>
     </div>
   );

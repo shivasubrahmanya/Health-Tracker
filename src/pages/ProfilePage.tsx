@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 interface ProfileType {
+  _id?: string;
   name: string;
   age: string;
   weight: string;
@@ -26,10 +27,14 @@ export default function ProfilePage() {
         headers: { Authorization: `Bearer ${token}` }
       });
 
+      if (!res.ok) {
+        console.error("Profile Fetch Failed:", res.status, res.statusText);
+        setLoading(false);
+        return;
+      }
+
       const data = await res.json();
-
-      if (res.ok) setProfile(data);
-
+      setProfile(data);
       setLoading(false);
     };
 
@@ -51,48 +56,94 @@ export default function ProfilePage() {
 
   return (
     <div className="profile-view-container">
-      <h1>Your Profile</h1>
+      <div className="profile-header-section">
+        <h1 className="profile-title">Your Profile</h1>
+        <p className="profile-subtitle">Manage your personal health details</p>
+      </div>
 
-      <div className="profile-view-card">
+      <div className="profile-content-grid">
 
-  <div className="profile-item">
-    <span className="label">Name</span>
-    <span className="value">{profile.name}</span>
-  </div>
+        {/* LEFT COLUMN: IDENTITY CARD */}
+        <div className="glass-card identity-card">
+          <div className="profile-avatar-large">
+            {profile.name.charAt(0).toUpperCase()}
+          </div>
+          <div className="identity-info">
+            <h2>{profile.name}</h2>
+            <p className="email-text">User ID: {profile._id?.substring(0, 8) || "8293..."}</p>
+            <span className="profile-badge-lg">{profile.gender}, {profile.age} years</span>
+          </div>
+          <button className="edit-btn-lg" onClick={handleEdit}>
+            Edit Profile
+          </button>
+        </div>
 
-  <div className="profile-item">
-    <span className="label">Age</span>
-    <span className="value">{profile.age}</span>
-  </div>
+        {/* RIGHT COLUMN: STATS GRID */}
+        <div className="glass-card stats-card-container">
+          <h3 className="section-heading">Physical Stats & Goals</h3>
 
-  <div className="profile-item">
-    <span className="label">Gender</span>
-    <span className="value">{profile.gender}</span>
-  </div>
+          <div className="detailed-stats-grid">
+            <div className="stat-box">
+              <span className="stat-icon">⚖️</span>
+              <div>
+                <span className="stat-label">Weight</span>
+                <span className="stat-value">{profile.weight} kg</span>
+              </div>
+            </div>
 
-  <div className="profile-item">
-    <span className="label">Weight</span>
-    <span className="value">{profile.weight} kg</span>
-  </div>
+            <div className="stat-box">
+              <span className="stat-icon">📏</span>
+              <div>
+                <span className="stat-label">Height</span>
+                <span className="stat-value">{profile.height} cm</span>
+              </div>
+            </div>
 
-  <div className="profile-item">
-    <span className="label">Height</span>
-    <span className="value">{profile.height} cm</span>
-  </div>
+            <div className="stat-box">
+              <span className="stat-icon">🎯</span>
+              <div>
+                <span className="stat-label">Goal</span>
+                <span className="stat-value">{profile.goal}</span>
+              </div>
+            </div>
 
-  <div className="profile-item">
-    <span className="label">Goal</span>
-    <span className="value">{profile.goal}</span>
-  </div>
+            <div className="stat-box">
+              <span className="stat-icon">⚡</span>
+              <div>
+                <span className="stat-label">Activity</span>
+                <span className="stat-value">{profile.activity}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-  <div className="profile-item">
-    <span className="label">Activity Level</span>
-    <span className="value">{profile.activity}</span>
-  </div>
-
-  <button onClick={handleEdit}>Edit Profile</button>
-
-</div>
+      {/* NEW SECTION: ACHIEVEMENTS / BADGES */}
+      <div className="glass-card achievements-card">
+        <h3 className="section-heading">🏆 Achievements & Badges</h3>
+        <div className="badges-grid">
+          <div className="badge-item earned">
+            <span className="badge-icon">🔥</span>
+            <span>3 Day Streak</span>
+          </div>
+          <div className="badge-item earned">
+            <span className="badge-icon">💧</span>
+            <span>Hydration King</span>
+          </div>
+          <div className="badge-item">
+            <span className="badge-icon grayscale">🏃</span>
+            <span>Step Master</span>
+          </div>
+          <div className="badge-item">
+            <span className="badge-icon grayscale">🦁</span>
+            <span>Early Bird</span>
+          </div>
+          <div className="badge-item">
+            <span className="badge-icon grayscale">🥗</span>
+            <span>Clean Eater</span>
+          </div>
+        </div>
+      </div>
 
     </div>
   );
