@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../config";
 import StatCard from "../components/StatCard";
 import MoodMealsCard from "../components/MoodMealsCard";
 import "../App.css";
@@ -52,7 +53,7 @@ const Dashboard = () => {
         if (!token) return;
 
         const todayRes = await fetch(
-          "http://localhost:5000/api/v1/daily-input/today",
+          `${API_BASE_URL}/api/v1/daily-input/today`,
           { headers: { Authorization: `Bearer ${token}` } }
         );
 

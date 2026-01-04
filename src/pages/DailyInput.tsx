@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { API_BASE_URL } from "../config";
 
 function DailyInput() {
   const [form, setForm] = useState({
@@ -42,7 +43,7 @@ function DailyInput() {
       mood: moodMap[form.mood] // ✅ CONVERT HERE
     };
 
-    const res = await fetch("http://localhost:5000/api/v1/daily-input", {
+    const res = await fetch(`${API_BASE_URL}/api/v1/daily-input`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

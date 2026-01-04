@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { API_BASE_URL } from "../config";
 
 interface ProfileType {
   _id?: string;
@@ -23,7 +24,7 @@ export default function ProfilePage() {
         return;
       }
 
-      const res = await fetch("http://localhost:5000/api/v1/profile/me", {
+      const res = await fetch(`${API_BASE_URL}/api/v1/profile/me`, {
         headers: { Authorization: `Bearer ${token}` }
       });
 

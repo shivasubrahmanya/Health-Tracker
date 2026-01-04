@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import HistoryChart from "../components/HistoryChart";
+import { API_BASE_URL } from "../config";
 import "../App.css";
 
 interface HistoryItem {
@@ -34,7 +35,7 @@ const History = () => {
                 const token = localStorage.getItem("token");
                 if (!token) return;
 
-                const res = await fetch("http://localhost:5000/api/v1/daily-input/all-history", {
+                const res = await fetch(`${API_BASE_URL}/api/v1/daily-input/all-history`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
 
@@ -98,7 +99,7 @@ const History = () => {
                             if (!token) return;
                             setLoading(true);
                             try {
-                                await fetch("http://localhost:5000/api/v1/daily-input/seed", {
+                                await fetch(`${API_BASE_URL}/api/v1/daily-input/seed`, {
                                     method: "POST",
                                     headers: { Authorization: `Bearer ${token}` }
                                 });

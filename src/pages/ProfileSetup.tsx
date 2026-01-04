@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { API_BASE_URL } from "../config";
 import type { ChangeEvent, FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -41,7 +42,7 @@ function ProfileSetup() {
       return;
     }
 
-    const res = await fetch("http://localhost:5000/api/v1/profile/setup", {
+    const res = await fetch(`${API_BASE_URL}/api/v1/profile/setup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

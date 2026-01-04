@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { API_BASE_URL } from "../config";
 
 function AITips() {
   const [data, setData] = useState<any>(null);
@@ -12,7 +13,7 @@ function AITips() {
         // Simulating loading for a bit so user sees something
         await new Promise(resolve => setTimeout(resolve, 800));
 
-        const res = await fetch("http://localhost:5000/api/ai/health-insights", {
+        const res = await fetch(`${API_BASE_URL}/api/ai/health-insights`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 
