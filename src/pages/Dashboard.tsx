@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import StatRing from "../components/StatRing";
+import StatCard from "../components/StatCard";
 import MoodMealsCard from "../components/MoodMealsCard";
 import "../App.css";
 
@@ -193,12 +193,12 @@ const Dashboard = () => {
         </div>
       </div>
 
-      {/* STAT RINGS */}
+      {/* STAT CARDS (LINEAR) */}
       <div className="section-title">Today's Progress</div>
       <div className="ring-grid">
-        <StatRing title="Steps" value={displayData.steps} max={10000} subLabel="/ 10,000" color="#10b981" />
-        <StatRing title="Water" value={displayData.water} max={3} unit="L" subLabel="3 liters" color="#3b82f6" />
-        <StatRing title="Sleep" value={displayData.sleep} max={9} unit="hrs" subLabel="Goal: 9" color="#a855f7" />
+        <StatCard title="Steps" value={displayData.steps} max={10000} unit="steps" color="#10b981" icon="👟" />
+        <StatCard title="Water" value={displayData.water} max={3} unit="L" color="#3b82f6" icon="💧" />
+        <StatCard title="Sleep" value={displayData.sleep} max={9} unit="hrs" color="#a855f7" icon="😴" />
         <MoodMealsCard moodEmoji={moodInfo.emoji} moodStatus={moodInfo.status} meals={displayData.meals} />
       </div>
 

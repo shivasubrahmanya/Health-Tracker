@@ -1433,9 +1433,90 @@ textarea {
 
 /* ... existing animation ... */
 
+/* ===========================================================
+   16. LINEAR STAT CARDS (Replaces Rings)
+   =========================================================== */
+.stat-card-linear {
+  padding: 25px !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  min-height: 200px;
+}
+
+.stat-card-linear:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.linear-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.icon-box {
+  width: 45px;
+  height: 45px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+
+.linear-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #334155;
+}
+
+.linear-value-row {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  margin-bottom: 20px;
+}
+
+.linear-value {
+  font-size: 2.5rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.linear-unit {
+  font-size: 1rem;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.linear-progress-bg {
+  width: 100%;
+  height: 10px;
+  background: #e2e8f0;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.linear-progress-fill {
+  height: 100%;
+  border-radius: 20px;
+  transition: width 1s ease-out;
+}
+
+.linear-footer {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  color: #94a3b8;
+  font-weight: 500;
+}
 
 /* ===========================================================
-   15. DIET TIPS PAGE
+   17. DIET TIPS PAGE
    =========================================================== */
 .diet-tips-container {
   display: grid;

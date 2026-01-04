@@ -9,6 +9,34 @@ const MoodMealsCard = ({
   moodStatus = "Happy",
   meals = "No meals logged"
 }: Props) => {
+  /* --- FOOD ANALYSIS LOGIC --- */
+  const analyzeFood = (mealStr: string) => {
+    const lower = mealStr.toLowerCase();
+
+    // Keywords (Expanded for Indian Context)
+    const healthy = [
+      "oats", "salad", "fruit", "veg", "dal", "roti", "chicken", "fish", "egg", "protein", "nuts", "water", "rice", "curd",
+      "paneer", "dosa", "idli", "sambar", "rajma", "chawal", "sabzi", "bhindi", "gobi", "palak", "methi", "soup", "sprouts", "millet"
+    ];
+    const junk = [
+      "burger", "pizza", "fried", "sugar", "cola", "soda", "sweet", "cake", "chips", "oil",
+      "samosa", "kachori", "pakora", "maggi", "noodles", "bhatura", "ice cream", "chocolate", "biscuits", "namkeen"
+    ];
+
+    let healthyCount = 0;
+    let junkCount = 0;
+
+    healthy.forEach(w => { if (lower.includes(w)) healthyCount++; });
+    junk.forEach(w => { if (lower.includes(w)) junkCount++; });
+
+    if (!mealStr || mealStr === "No meals logged") return { text: "No Data", color: "#94a3b8" };
+    if (junkCount > healthyCount) return { text: "⚠️ High Calorie / Junk", color: "#ef4444" };
+    if (healthyCount > 0) return { text: "✅ Balanced & Healthy", color: "#10b981" };
+    return { text: "⚖️ Moderate Diet", color: "#f59e0b" };
+  };
+
+  const verdict = analyzeFood(meals);
+
   return (
     <div className="glass-card mood-card">
 
@@ -23,7 +51,20 @@ const MoodMealsCard = ({
       <div className="divider"></div>
 
       <div className="meals-section">
-        <h4 className="section-header">Meals Log</h4>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "10px" }}>
+          <h4 className="section-header" style={{ margin: 0 }}>Meals Log</h4>
+          <span style={{
+            fontSize: "0.8rem",
+            fontWeight: "700",
+            color: verdict.color,
+            background: `${verdict.color}20`,
+            padding: "4px 8px",
+            borderRadius: "8px"
+          }}>
+            {verdict.text}
+          </span>
+        </div>
+
         <div className="meals-chips-container">
           {meals ? (
             meals.split(/,|\n/).map((m, i) => (
