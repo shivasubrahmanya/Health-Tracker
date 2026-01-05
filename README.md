@@ -1,57 +1,54 @@
-# Health Tracker
+# 🥗 AI Health Tracker
 
-A comprehensive health tracking application built with React and Node.js. Track your daily health metrics, mood, and meals, and get AI-powered insights to improve your well-being.
+A comprehensive, AI-powered health tracking application built with **React 19** and **Node.js**. Monitor your daily health metrics, analyze your diet, and receive personalized AI insights to improve your well-being.
 
-## 🚀 Status
-**Current Version:** 1.0.0
-**Status:** Active Development
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![React](https://img.shields.io/badge/React-19-61dafb.svg)
+![Node](https://img.shields.io/badge/Node-v18+-339933.svg)
+
+## 🚀 Key Features
+
+### 📊 Modern Dashboard
+-   **Health Score (0-100):** Real-time daily score calculated from your steps, water, sleep, and mood.
+-   **Visual Progress:** Sleek linear `StatCards` for tracking Steps, Water, and Sleep goals.
+-   **Gamification:** Daily streaks and motivational quotes to keep you inspired.
+-   **Glassmorphism UI:** A beautiful, modern interface with responsive grid layouts.
+
+### 🍎 Smart Mood & Meals
+-   **Food Analysis:** Instant client-side analysis of your meals. Automatically detects **Healthy** vs **Junk** foods based on an extensive keyword library (tailored for Indian cuisine) and provides a verdict (e.g., "✅ Balanced & Healthy" or "⚠️ High Calorie").
+-   **Mood Tracking:** Log your emotional state and visualize it alongside your diet.
+
+### 🧠 AI Health Dashboard
+-   **Health Risk Assessment:** AI-driven analysis of your potential health risks (Low/Medium/High) with contributing factors.
+-   **Sleep Prediction:** Predicts your sleep duration based on your daily activity.
+-   **Daily Recommendations:** Personalized tips for Yoga, Hydration, and Activity.
+-   **Custom Diet Plan:** A daily meal plan (Breakfast, Lunch, Dinner, Snacks) with calorie estimation.
+
+### 📜 Comprehensive History
+-   **Detailed Logs:** View your entire history of health reports.
+-   **Interactive Charts:** Visualize trends for Steps, Water, Sleep, Stress, and Mood over time using `Recharts`.
+-   **Filtering:** Toggle between different metrics to analyze specific areas of your health.
+
+### 👤 Profile & Badges
+-   **Profile Management:** Manage your physical stats (Height, Weight, Goals).
+-   **Achievements:** View your earned badges (e.g., "Hydration King", "Step Master") in the profile section.
+
+---
 
 ## 🛠️ Tech Stack
 
-### Frontend
-- **Framework:** React 19 (Vite)
-- **Language:** TypeScript
-- **Styling:** CSS Modules / Vanilla CSS
-- **Visualization:** Recharts
-- **Routing:** React Router v7
+-   **Frontend:** React 19, TypeScript, Vite, Recharts, CSS Modules (Glassmorphism).
+-   **Backend:** Node.js, Express.js.
+-   **Database:** MongoDB, Mongoose.
+-   **Authentication:** JWT (JSON Web Tokens).
 
-### Backend
-- **Runtime:** Node.js
-- **Framework:** Express.js
-- **Database:** MongoDB
-- **ODM:** Mongoose
-- **Authentication:** JWT (JSON Web Tokens)
-
-## ✨ Features Implemented
-
-### 1. User Authentication
-- Secure **Login** and **Sign Up** functionality.
-- JWT-based authentication for secure session management.
-
-### 2. Dashboard
-- **Visual Analytics:** Real-time health data visualization using Recharts.
-  - *Stat Rings:* Quick circular progress views of daily goals.
-  - *Summary Bar Charts:* Weekly overview of health metrics.
-  - *Weekly Line Charts:* Trend analysis over time.
-- **Summary Cards:** Quick access to key daily metrics (Water, Sleep, Steps).
-
-### 3. Daily Tracking
-- **Daily Input:** Intuitive interface to log your daily stats.
-- **Mood & Meals:** dedicated cards to track your emotional state and nutritional intake with the `MoodMealsCard`.
-
-### 4. Smart Insights
-- **AI Tips:** Personalized health recommendations based on your logs.
-- **Diet Tips:** specialized AI-driven dietary advice (`AIDietTips`).
-
-### 5. Profile Management
-- **Profile Page:** Manage user details and settings.
-- **Profile Setup:** Guided flow for initial user configuration.
+---
 
 ## 📦 Setup & Installation
 
 ### Prerequisites
-- Node.js (v18 or higher)
-- MongoDB (Local instance or Atlas URI)
+-   Node.js (v18 or higher)
+-   MongoDB (Local instance or Atlas URI)
 
 ### 1. Clone the Repository
 ```bash
@@ -66,7 +63,7 @@ cd backend
 npm install
 ```
 
-Create a `.env` file in the `backend/` directory with your configuration:
+Create a `.env` file in the `backend/` directory:
 ```env
 MONGO_URI=your_mongodb_connection_string
 JWT_SECRET=your_super_secret_key
@@ -76,12 +73,12 @@ PORT=5000
 Start the server:
 ```bash
 npm start
-# or for development with nodemon:
+# or for development:
 npm run dev
 ```
 
 ### 3. Frontend Setup
-In a new terminal window, navigate to the root directory (if not already there) and install dependencies:
+In a new terminal window, navigate to the root directory:
 ```bash
 npm install
 ```
@@ -91,18 +88,17 @@ Start the development server:
 npm run dev
 ```
 
-The application should now be running at `http://localhost:5173`.
-
-## 🗺️ Roadmap / Future Plans
-
-This project is constantly evolving. Here is what is planned for future updates:
-
-- [ ] **Mobile Optimization:** Enhance the responsive design for a seamless mobile experience.
-- [ ] **Advanced AI Analytics:** Deeper integration with LLMs for detailed weekly health reports and anomaly detection.
-- [ ] **Social Features:** Friends, leaderboards, and community challenges.
-- [ ] **Wearable Integration:** Sync data from Fitbit, Apple Health, or Google Fit.
-- [ ] **Dark Mode:** Full system-wide dark mode support.
-- [ ] **Export Data:** Ability to export health reports as PDF/CSV.
+Access the app at `http://localhost:5173`.
 
 ---
-*Built with ❤️ by Shiva*
+
+## 🗺️ Roadmap
+
+-   [ ] **Mobile Optimization:** Fully responsive mobile-first design.
+-   [ ] **Wearable Sync:** Integration with Google Fit / Apple Health.
+-   [ ] **Social Sharing:** Share achievements with friends.
+-   [ ] **Advanced LLM:** Deeper integration with Gemini/OpenAI for conversational health advice.
+
+---
+
+*Built for a healthier you.*
