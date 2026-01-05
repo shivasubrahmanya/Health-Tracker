@@ -10,7 +10,8 @@ import DailyInput from "./pages/DailyInput";
 import AiTips from "./pages/AiTips";
 import ProfilePage from "./pages/ProfilePage";
 import History from "./pages/History";
-// import Settings from "./pages/Settings";  // add if needed
+import Settings from "./pages/Settings";
+
 
 import NavBar from "./components/NavBar";      // Home navbar
 import MainNav from "./components/MainNav";    // Logged-in navbar
@@ -49,7 +50,7 @@ function AppWrapper() {
         <Route path="/profile" element={<ProfilePage />} />
 
         {/* ADD SETTINGS PAGE IF EXISTS */}
-        {/* <Route path="/settings" element={<Settings />} /> */}
+        <Route path="/settings" element={<Settings />} />
 
         {/* FALLBACK → HOME */}
         <Route path="*" element={<Home />} />

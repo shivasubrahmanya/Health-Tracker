@@ -31,6 +31,7 @@ const quotes = [
 const Dashboard = () => {
   const navigate = useNavigate();
   const [dailyData, setDailyData] = useState<DailyInputData | null>(null);
+  const [goals, setGoals] = useState({ steps: 10000, water: 3, sleep: 8 });
   const [loading, setLoading] = useState(true);
   const [quote, setQuote] = useState("");
 
@@ -61,6 +62,16 @@ const Dashboard = () => {
           const data = await todayRes.json();
           if (data) setDailyData(data);
         }
+
+        // Fetch Goals
+        const profileRes = await fetch(`${API_BASE_URL}/api/v1/profile/me`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        if (profileRes.ok) {
+          const profile = await profileRes.json();
+          if (profile.goals) setGoals(profile.goals);
+        }
+
       } catch (err) {
         console.error(err);
       } finally {
@@ -97,13 +108,13 @@ const Dashboard = () => {
     let score = 0;
 
     // Steps (Max 40 points)
-    const stepsScore = Math.min((displayData.steps / 10000) * 40, 40);
+    const stepsScore = Math.min((displayData.steps / goals.steps) * 40, 40);
 
     // Water (Max 20 points)
-    const waterScore = Math.min((displayData.water / 3) * 20, 20);
+    const waterScore = Math.min((displayData.water / goals.water) * 20, 20);
 
     // Sleep (Max 30 points)
-    const sleepScore = Math.min((displayData.sleep / 8) * 30, 30);
+    const sleepScore = Math.min((displayData.sleep / goals.sleep) * 30, 30);
 
     // Mood (Max 10 points)
     const moodScore = displayData.mood === 3 ? 10 : displayData.mood === 2 ? 5 : 2;
@@ -197,9 +208,9 @@ const Dashboard = () => {
       {/* STAT CARDS (LINEAR) */}
       <div className="section-title">Today's Progress</div>
       <div className="ring-grid">
-        <StatCard title="Steps" value={displayData.steps} max={10000} unit="steps" color="#10b981" icon="👟" />
-        <StatCard title="Water" value={displayData.water} max={3} unit="L" color="#3b82f6" icon="💧" />
-        <StatCard title="Sleep" value={displayData.sleep} max={9} unit="hrs" color="#a855f7" icon="😴" />
+        <StatCard title="Steps" value={displayData.steps} max={goals.steps} unit="steps" color="#10b981" icon="👟" />
+        <StatCard title="Water" value={displayData.water} max={goals.water} unit="L" color="#3b82f6" icon="💧" />
+        <StatCard title="Sleep" value={displayData.sleep} max={goals.sleep} unit="hrs" color="#a855f7" icon="😴" />
         <MoodMealsCard moodEmoji={moodInfo.emoji} moodStatus={moodInfo.status} meals={displayData.meals} />
       </div>
 
