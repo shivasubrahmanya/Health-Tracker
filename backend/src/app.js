@@ -8,6 +8,7 @@ import authRoutes from "./routes/auth.routes.js";
 import profileRoutes from "./routes/profile.routes.js";
 import dailyInputRoutes from "./routes/dailyInput.routes.js";
 import aiRoutes from "./routes/ai.routes.js";
+import userRoutes from "./routes/user.routes.js";
 
 
 const app = express();
@@ -58,5 +59,6 @@ app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/profile", profileRoutes);
 app.use("/api/v1/daily-input", dailyInputRoutes);
 app.use("/api/ai", aiRoutes);
+app.use("/api/v1/user", userRoutes);
 
 export default app;

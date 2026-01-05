@@ -121,6 +121,53 @@ export default function Settings() {
         });
     };
 
+
+    const handleExport = async () => {
+        const token = localStorage.getItem("token");
+        try {
+            const res = await fetch(`${API_BASE_URL}/api/v1/user/export`, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+
+            if (!res.ok) throw new Error("Failed to export data");
+
+            const blob = await res.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = `health-tracker-data-${new Date().toISOString().split("T")[0]}.json`;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+        } catch (err) {
+            console.error("Export failed:", err);
+            alert("Failed to export data. Please try again.");
+        }
+    };
+
+    const handleDeleteAccount = async () => {
+        if (!window.confirm("Are you sure you want to delete your account? This action cannot be undone.")) {
+            return;
+        }
+
+        const token = localStorage.getItem("token");
+        try {
+            const res = await fetch(`${API_BASE_URL}/api/v1/user/delete`, {
+                method: "DELETE",
+                headers: { Authorization: `Bearer ${token}` }
+            });
+
+            if (!res.ok) throw new Error("Failed to delete account");
+
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+            window.location.href = "/"; // Redirect to home/login
+        } catch (err) {
+            console.error("Delete failed:", err);
+            alert("Failed to delete account. Please try again.");
+        }
+    };
+
     if (loading) return <div className="loading-screen">Loading Settings...</div>;
 
     return (
@@ -300,8 +347,18 @@ export default function Settings() {
                             Need a copy of your health data? You can export it as a CSV file or delete your account permanently.
                         </p>
                         <div style={{ display: 'flex', gap: '12px' }}>
-                            <button className="danger-btn-outline" onClick={() => alert("Data Export Started...")}>Export Data</button>
-                            <button className="danger-btn-outline">Delete Account</button>
+                            <button className="danger-btn-outline" onClick={handleExport}>Export Data</button>
+                            <button className="danger-btn-outline" onClick={handleDeleteAccount}>Delete Account</button>
+                            <button
+                                className="danger-btn-outline"
+                                onClick={() => {
+                                    localStorage.removeItem("token");
+                                    localStorage.removeItem("user");
+                                    window.location.href = "/login";
+                                }}
+                            >
+                                Logout
+                            </button>
                         </div>
                     </section>
 
@@ -310,4 +367,5 @@ export default function Settings() {
 
         </div>
     );
+
 }

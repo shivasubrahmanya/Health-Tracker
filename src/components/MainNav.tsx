@@ -21,18 +21,7 @@ export default function MainNavBar() {
         <li onClick={() => navigate("/settings")}>Settings</li>
       </ul>
 
-      {/* LOGOUT BUTTON */}
-      <div className="nav-buttons">
-        <button
-          className="nav-login"
-          onClick={() => {
-            localStorage.removeItem("token");
-            navigate("/login");
-          }}
-        >
-          Logout
-        </button>
-      </div>
+
 
     </nav>
   );
