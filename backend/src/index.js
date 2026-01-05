@@ -6,6 +6,12 @@ import connectDB from "./config/database.js";
 
 connectDB();
 
-app.listen(process.env.PORT, () => {
-  console.log(`Server running on port ${process.env.PORT}`);
-});
+
+// Only listen if NOT running in Vercel (Vercel sets VERCEL environment variable) or if explicitly testing locally
+if (process.env.NODE_ENV !== "production") {
+  app.listen(process.env.PORT || 5000, () => {
+    console.log(`Server running on port ${process.env.PORT || 5000}`);
+  });
+}
+
+export default app;
