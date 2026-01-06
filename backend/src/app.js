@@ -16,7 +16,14 @@ const app = express();
 // --- SECURITY MIDDLEWARE ---
 
 // 1. Set Security Headers
-app.use(helmet());
+app.use(helmet({
+    crossOriginResourcePolicy: false,
+}));
+
+// Health Check Route (verify server is running)
+app.get("/", (req, res) => {
+    res.send("API is running...");
+});
 
 // 2. Enable CORS
 app.use(cors({
