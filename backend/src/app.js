@@ -19,7 +19,11 @@ const app = express();
 app.use(helmet());
 
 // 2. Enable CORS
-app.use(cors()); // Allow all by default for dev, restrict in prod if needed
+app.use(cors({
+    origin: "*", // Allow all origins for now (debugging)
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"]
+}));
 
 // 3. Body Parser (limit body size to prevent DoS)
 app.use(express.json({ limit: "10kb" }));
