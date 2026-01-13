@@ -1,13 +1,17 @@
 import mongoose from 'mongoose';
 
 const connectDB = async () => {
-    try{
-            const connectioInstance=await mongoose.connect
-            (`${process.env.MONGODB_URI}`,)
-            console.log(`MongoDB connected: ${connectioInstance.connection.host}`);
-    }catch(error){
+    try {
+        if (mongoose.connection.readyState >= 1) {
+            return;
+        }
+
+        const connectioInstance = await mongoose.connect(process.env.MONGODB_URI);
+        console.log(`MongoDB connected: ${connectioInstance.connection.host}`);
+    } catch (error) {
         console.error('Connection to MongoDB failed:', error);
-        process.exit(1);
+        // Do not process.exit(1) in serverless environment as it kills the instance
+        throw error;
     }
 }
 export default connectDB;
